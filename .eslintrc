@@ -1,0 +1,14 @@
+{
+  "root": true,
+  "extends": "standard",
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "globals": {
+    "Blob": "readonly",
+    "FormData": "readonly",
+    "fetch": "readonly"
+  }
+}

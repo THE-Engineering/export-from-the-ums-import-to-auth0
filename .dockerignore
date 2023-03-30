@@ -1,0 +1,39 @@
+.DS_Store
+
+.circleci
+.husky
+
+.editorconfig
+
+.eslintignore
+.eslintrc
+
+.github
+.gitattributes
+.gitignore
+
+/node_modules
+README.md
+
+# NPM
+.npmignore
+
+# NVM
+.nvmrc
+
+# Deps
+.depsrc
+
+# Docs
+/docs
+
+# JSON
+/json
+
+# Shell
+/scripts/*.sh
+
+# Docker
+.dockerignore
+Dockerfile
+docker-compose.yml

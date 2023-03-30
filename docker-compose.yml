@@ -1,0 +1,16 @@
+version: '3'
+services:
+  export-from-the-ums-import-to-auth0:
+    image: export-from-the-ums-import-to-auth0
+    container_name: export-from-the-ums-import-to-auth0
+    working_dir: /app
+    env_file: .env
+    volumes:
+      - './:/app'
+    command: >
+      sh -c "mkdir /root/.ssh 2> /dev/null && \
+      ssh-keyscan \"ssh.eu-4.platform.sh\" >> /root/.ssh/known_hosts && \
+      ssh-keyscan \"git.eu-4.platform.sh\" >> /root/.ssh/known_hosts && \
+      platform ssh-cert:load --no-interaction && \
+      platform tunnel:open --project \"$PLATFORM_PROJECT\" --environment \"$PLATFORM_BRANCH\" --no-interaction && \
+      npm start"

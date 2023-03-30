@@ -1,0 +1,64 @@
+{
+  "name": "export-from-the-ums-import-to-auth0",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./start.mjs",
+  "type": "module",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18.15.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/THE-Engineering/export-from-the-ums-import-to-auth0.git"
+  },
+  "homepage": "https://github.com/THE-Engineering/export-from-the-ums-import-to-auth0#readme",
+  "bugs": {
+    "url": "https://github.com/THE-Engineering/export-from-the-ums-import-to-auth0/issues"
+  },
+  "scripts": {
+    "start": "bash ./start.sh",
+    "lint": "cross-env NODE_ENV=production eslint . --ext .mjs --ext .cjs",
+    "lint:fix": "npm run lint -- --fix",
+    "users": "node ./scripts/users.mjs",
+    "transform": "node ./scripts/transform.mjs",
+    "users-imports": "node ./scripts/users-imports.mjs",
+    "users-exports": "node ./scripts/users-exports.mjs",
+    "remove-by-users": "node ./scripts/remove-by-users.mjs",
+    "remove-by-users-imports": "node ./scripts/remove-by-users-imports.mjs",
+    "remove-by-users-exports": "node ./scripts/remove-by-users-exports.mjs",
+    "validate": "bash ./validate.sh",
+    "validate-users": "node ./scripts/validate-users.mjs",
+    "validate-users-by-users-imports": "node ./scripts/validate-users-by-users-imports.mjs",
+    "validate-users-by-users-exports": "node ./scripts/validate-users-by-users-exports.mjs",
+    "validate-users-imports-by-users": "node ./scripts/validate-users-imports-by-users.mjs",
+    "validate-users-imports-by-users-exports": "node ./scripts/validate-users-imports-by-users-exports.mjs",
+    "validate-users-exports-by-users": "node ./scripts/validate-users-exports-by-users.mjs",
+    "validate-users-exports-by-users-imports": "node ./scripts/validate-users-exports-by-users-imports.mjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "fs-extra": "^11.1.1",
+    "glob": "8.1.0",
+    "mariadb": "^3.1.1",
+    "nconf": "^0.12.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.3",
+    "@babel/eslint-parser": "^7.21.3",
+    "@babel/preset-env": "^7.20.2",
+    "core-js": "^3.29.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.36.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1"
+  },
+  "imports": {
+    "#config/*": "./config/*.mjs",
+    "#utils/*": "./utils/*.mjs",
+    "#application/*": "./application/*.mjs"
+  }
+}
