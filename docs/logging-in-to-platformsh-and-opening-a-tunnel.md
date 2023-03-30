@@ -8,17 +8,17 @@ You need
 
 In a terminal, login to Platform.sh. This will open a browser window for you to enter your credentials
 
-![Login](images/1-platform-login.png)
+<img alt="Login" src="images/1-platform-login.png" width="525px" />
 
 ## 2 - Open an tunnel
 
 Open a tunnel to the User Management System
 
-![Select the User Management System](images/2-platform-tunnel-open.png)
+<img alt="Select the User Management System" src="images/2-platform-tunnel-open.png" width="525px" />
 
 Enter an environment ID (in this case `master`) then enter `y` to open the tunnel
 
-![Enter `master` then `y`](images/3-master.png)
+<img alt="Enter `master` then `y`" src="images/3-master.png" width="525px" />
 
 Note the credentials after `mysql://` - The username is `admin` and the password is (in this image) _redacted_. You should copy the password to your device's clipboard
 
