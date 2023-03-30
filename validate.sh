@@ -49,7 +49,7 @@ then
     "${USERS_EXPORTS_JSON_DIRECTORY-$DEFAULT_USERS_EXPORTS_JSON_DIRECTORY}" \
     .validate 2> /dev/null
 
-  echo 'Archiving files'
+  echo Archiving files
 
   archive_files "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
   archive_files "${USERS_IMPORTS_JSON_DIRECTORY-$DEFAULT_USERS_IMPORTS_JSON_DIRECTORY}"
@@ -64,7 +64,7 @@ then
     $USERS_IMPORTS_BY_USERS ||
     $USERS_EXPORTS_BY_USERS;
   then
-    echo 'Exporting users from Auth0'
+    echo Exporting users from Auth0
 
     NODE_OPTIONS=--no-warnings node ./scripts/users-exports.mjs \
       --AUTH0_DOMAIN "$AUTH0_DOMAIN" \
@@ -167,13 +167,13 @@ then
   # shellcheck disable=SC2181
   if [[ $? == 0 ]];
   then
-    echo '👋'
+    echo 👋
     exit 0
   fi
 else
-  echo '💩'
+  echo 💩
   exit 1
 fi
 
-echo '💥'
+echo 💥
 exit 1

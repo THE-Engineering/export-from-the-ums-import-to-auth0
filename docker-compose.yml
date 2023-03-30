@@ -8,9 +8,8 @@ services:
     volumes:
       - './:/app'
     command: >
-      sh -c "mkdir /root/.ssh 2> /dev/null && \
+      bash -c "mkdir /root/.ssh 2> /dev/null && \
       ssh-keyscan \"ssh.eu-4.platform.sh\" >> /root/.ssh/known_hosts && \
       ssh-keyscan \"git.eu-4.platform.sh\" >> /root/.ssh/known_hosts && \
       platform ssh-cert:load --no-interaction && \
-      platform tunnel:open --project \"$PLATFORM_PROJECT\" --environment \"$PLATFORM_BRANCH\" --no-interaction && \
       npm start"

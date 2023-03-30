@@ -22,18 +22,18 @@ then
   ! has_mariadb_database && \
     echo -e 1>&2 "\033[0;31m • \033[0m\$MARIADB_DATABASE"
 
-  echo '💥'
+  echo 💥
   exit 2
 fi
 
-echo 'Archiving file'
+echo Archiving file
 
 archive_file "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}"
 
 # shellcheck disable=SC2181
 if [[ $? == 0 ]];
 then
-  echo 'Exporting users from THE UMS'
+  echo Exporting users from THE UMS
 
   node ./scripts/users.mjs \
     --MARIADB_USER "$MARIADB_USER" \
@@ -43,9 +43,9 @@ then
     --MARIADB_DATABASE "$MARIADB_DATABASE" \
     --DESTINATION="${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}"
 
-  echo '👋'
+  echo 👋
   exit 0
 fi
 
-echo '💥'
+echo 💥
 exit 1

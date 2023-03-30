@@ -18,6 +18,16 @@ function isExpired ({ expires_in: expiresIn = 0 } = {}) {
   ) < Date.now()
 }
 
+function isAuthorized ({ access_token: accessToken } = {}) {
+  /**
+   *  `accessToken` is a required field in the authorisation response
+   *  so its absence means we are not authorised and should halt
+   */
+  return (
+    Boolean(accessToken)
+  )
+}
+
 // https://auth0.com/docs/secure/tokens/access-tokens/get-management-api-access-tokens-for-production
 async function getAuthorizationFromResource () {
   const response = await fetch(AUTH0_RESOURCE, {
@@ -39,6 +49,7 @@ async function getAuthorizationFromResource () {
 async function getAuthorization () {
   if (isExpired(AUTHORIZATION)) {
     AUTHORIZATION = await getAuthorizationFromResource()
+    if (!isAuthorized(AUTHORIZATION)) throw new Error('NOT_AUTHORIZED')
     AUTHORIZED_AT = Date.now()
   }
 

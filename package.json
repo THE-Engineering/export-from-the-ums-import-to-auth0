@@ -34,7 +34,8 @@
     "validate-users-imports-by-users": "node ./scripts/validate-users-imports-by-users.mjs",
     "validate-users-imports-by-users-exports": "node ./scripts/validate-users-imports-by-users-exports.mjs",
     "validate-users-exports-by-users": "node ./scripts/validate-users-exports-by-users.mjs",
-    "validate-users-exports-by-users-imports": "node ./scripts/validate-users-exports-by-users-imports.mjs"
+    "validate-users-exports-by-users-imports": "node ./scripts/validate-users-exports-by-users-imports.mjs",
+    "dirs": "bash ./dirs.sh"
   },
   "dependencies": {
     "dotenv": "^16.0.3",

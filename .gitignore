@@ -16,6 +16,9 @@
 /connection.json
 /connection.*.json
 
+#Platform.sh
+.platform
+
 # JSON
 /json
 .users-imports

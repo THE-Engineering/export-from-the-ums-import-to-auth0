@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 set -a
 source .env
@@ -6,13 +6,23 @@ set +a
 
 source ./utils.sh
 
+trap platform_tunnel_close EXIT
+
 DEFAULT_USERS_JSON_FILE=./json/users.json
 DEFAULT_AUTH0_JSON_DIRECTORY=./json/auth0
 DEFAULT_AUTH0_UPSERT=true
 DEFAULT_STATUS_JSON_DIRECTORY=./json/status
 DEFAULT_USERS_IMPORTS_JSON_DIRECTORY=.users-imports
 
-echo '✨'
+mkdir .platform 2> /dev/null
+
+echo ✨
+
+platform_tunnel_open;
+
+MARIADB_PASSWORD=$(get_mariadb_password)
+
+platform_tunnel_list;
 
 if ! has_mariadb;
 then
@@ -28,18 +38,18 @@ then
   ! has_mariadb_database && \
     echo -e 1>&2 "\033[0;31m • \033[0m\$MARIADB_DATABASE"
 
-  echo '💥'
+  echo 💥
   exit 2
 fi
 
-echo 'Archiving file'
+echo Archiving file
 
 archive_file "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}"
 
 # shellcheck disable=SC2181
 if [[ $? == 0 ]];
 then
-  echo 'Exporting users from THE UMS'
+  echo Exporting users from THE UMS
 
   node ./scripts/users.mjs \
     --MARIADB_USER "$MARIADB_USER" \
@@ -48,6 +58,8 @@ then
     --MARIADB_PORT "$MARIADB_PORT" \
     --MARIADB_DATABASE "$MARIADB_DATABASE" \
     --DESTINATION="${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}"
+
+  platform_tunnel_close;
 
   # shellcheck disable=SC2181
   if [[ $? == 0 ]];
@@ -64,7 +76,7 @@ then
         ! has_auth0_access_token && \
           echo -e 1>&2 "\033[0;31m • \033[0m\$AUTH0_ACCESS_TOKEN"
 
-        echo '💥'
+        echo 💥
         exit 3
       fi
 
@@ -84,7 +96,7 @@ then
         ! has_auth0_resource && \
           echo -e 1>&2 "\033[0;31m • \033[0m\$AUTH0_RESOURCE"
 
-        echo '💥'
+        echo 💥
         exit 4
       fi
     fi
@@ -94,13 +106,13 @@ then
       "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}" \
       "${USERS_IMPORTS_JSON_DIRECTORY-$DEFAULT_USERS_IMPORTS_JSON_DIRECTORY}" 2> /dev/null
 
-    echo 'Archiving files'
+    echo Archiving files
 
     archive_files "${AUTH0_JSON_DIRECTORY-$DEFAULT_AUTH0_JSON_DIRECTORY}"
     archive_files "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
     archive_files "${USERS_IMPORTS_JSON_DIRECTORY-$DEFAULT_USERS_IMPORTS_JSON_DIRECTORY}"
 
-    echo 'Transforming users'
+    echo Transforming users
 
     node ./scripts/transform.mjs \
       --ORIGIN "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}" \
@@ -109,7 +121,7 @@ then
     # shellcheck disable=SC2181
     if [[ $? == 0 ]];
     then
-      echo 'Importing users to Auth0'
+      echo Importing users to Auth0
 
       NODE_OPTIONS=--no-warnings node ./scripts/users-imports.mjs \
         --AUTH0_DOMAIN "$AUTH0_DOMAIN" \
@@ -147,12 +159,12 @@ then
       # shellcheck disable=SC2181
       if [[ $? == 0 ]];
       then
-        echo '👋'
+        echo 👋
         exit 0
       fi
     fi
   fi
 fi
 
-echo '💥'
+echo 💥
 exit 1

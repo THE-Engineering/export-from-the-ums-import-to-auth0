@@ -9,7 +9,7 @@ source ./utils.sh
 DEFAULT_STATUS_JSON_DIRECTORY=./json/status
 DEFAULT_USERS_EXPORTS_JSON_DIRECTORY=.users-exports
 
-echo '✨'
+echo ✨
 
 if ! has_auth0;
 then
@@ -23,7 +23,7 @@ then
     ! has_auth0_access_token && \
       echo -e 1>&2 "\033[0;31m • \033[0m\$AUTH0_ACCESS_TOKEN"
 
-    echo '💥'
+    echo 💥
     exit 2
   fi
 
@@ -43,7 +43,7 @@ then
     ! has_auth0_resource && \
       echo -e 1>&2 "\033[0;31m • \033[0m\$AUTH0_RESOURCE"
 
-    echo '💥'
+    echo 💥
     exit 3
   fi
 fi
@@ -52,7 +52,7 @@ mkdir \
   "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}" \
   "${USERS_EXPORTS_JSON_DIRECTORY-$DEFAULT_USERS_EXPORTS_JSON_DIRECTORY}" 2> /dev/null
 
-echo 'Archiving files'
+echo Archiving files
 
 archive_files "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
 archive_files "${USERS_EXPORTS_JSON_DIRECTORY-$DEFAULT_USERS_EXPORTS_JSON_DIRECTORY}"
@@ -60,7 +60,7 @@ archive_files "${USERS_EXPORTS_JSON_DIRECTORY-$DEFAULT_USERS_EXPORTS_JSON_DIRECT
 # shellcheck disable=SC2181
 if [[ $? == 0 ]];
 then
-  echo 'Exporting users from Auth0'
+  echo Exporting users from Auth0
 
   NODE_OPTIONS=--no-warnings node ./scripts/users-exports.mjs \
     --AUTH0_DOMAIN "$AUTH0_DOMAIN" \
@@ -70,9 +70,9 @@ then
     --AUTH0_AUDIENCE "$AUTH0_AUDIENCE" \
     --AUTH0_RESOURCE "$AUTH0_RESOURCE"
 
-  echo '👋'
+  echo 👋
   exit 0
 fi
 
-echo '💥'
+echo 💥
 exit 1

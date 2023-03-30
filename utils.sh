@@ -1,5 +1,24 @@
 #!/bin/bash
 
+PLATFORM_TUNNEL_OPEN=.platform/tunnel-open.log
+PLATFORM_TUNNEL_CLOSE=.platform/tunnel-close.log
+PLATFORM_TUNNEL_LIST=.platform/tunnel-list.log
+
+platform_tunnel_open () {
+  rm "$PLATFORM_TUNNEL_OPEN" 2> /dev/null
+  platform tunnel:open --project "$PLATFORM_PROJECT" --environment "$PLATFORM_BRANCH" --no-interaction &> "$PLATFORM_TUNNEL_OPEN"
+}
+
+platform_tunnel_close () {
+  rm "$PLATFORM_TUNNEL_CLOSE" 2> /dev/null
+  platform tunnel:close --no-interaction &> "$PLATFORM_TUNNEL_CLOSE"
+}
+
+platform_tunnel_list () {
+  rm "$PLATFORM_TUNNEL_LIST" 2> /dev/null
+  platform tunnel:list &> "$PLATFORM_TUNNEL_LIST"
+}
+
 has_auth0_domain () {
   if [[ -z "$AUTH0_DOMAIN" ]];
   then
@@ -90,6 +109,10 @@ has_mariadb_password () {
   then
     false
   fi
+}
+
+get_mariadb_password () {
+  [[ "$(<$PLATFORM_TUNNEL_OPEN)" =~ admin:([a-z0-9]*)@ ]] && echo "${BASH_REMATCH[1]}"
 }
 
 has_mariadb_host () {

@@ -11,7 +11,7 @@ DEFAULT_AUTH0_UPSERT=true
 DEFAULT_STATUS_JSON_DIRECTORY=./json/status
 DEFAULT_USERS_IMPORTS_JSON_DIRECTORY=.users-imports
 
-echo '✨'
+echo ✨
 
 if ! has_auth0;
 then
@@ -25,7 +25,7 @@ then
     ! has_auth0_access_token && \
       echo -e 1>&2 "\033[0;31m • \033[0m\$AUTH0_ACCESS_TOKEN"
 
-    echo '💥'
+    echo 💥
     exit 2
   fi
 
@@ -45,7 +45,7 @@ then
     ! has_auth0_resource && \
       echo -e 1>&2 "\033[0;31m • \033[0m\$AUTH0_RESOURCE"
 
-    echo '💥'
+    echo 💥
     exit 3
   fi
 fi
@@ -55,7 +55,7 @@ mkdir \
   "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}" \
   "${USERS_IMPORTS_JSON_DIRECTORY-$DEFAULT_USERS_IMPORTS_JSON_DIRECTORY}" 2> /dev/null
 
-echo 'Archiving files'
+echo Archiving files
 
 archive_files "${AUTH0_JSON_DIRECTORY-$DEFAULT_AUTH0_JSON_DIRECTORY}"
 archive_files "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
@@ -64,7 +64,7 @@ archive_files "${USERS_IMPORTS_JSON_DIRECTORY-$DEFAULT_USERS_IMPORTS_JSON_DIRECT
 # shellcheck disable=SC2181
 if [[ $? == 0 ]];
 then
-  echo 'Importing users to Auth0'
+  echo Importing users to Auth0
 
   NODE_OPTIONS=--no-warnings node ./scripts/users-imports.mjs \
     --AUTH0_DOMAIN "$AUTH0_DOMAIN" \
@@ -77,9 +77,9 @@ then
     --ORIGIN "${AUTH0_JSON_DIRECTORY-$DEFAULT_AUTH0_JSON_DIRECTORY}" \
     --DESTINATION "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
 
-  echo '👋'
+  echo 👋
   exit 0
 fi
 
-echo '💥'
+echo 💥
 exit 1
