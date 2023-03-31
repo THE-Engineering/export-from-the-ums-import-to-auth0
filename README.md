@@ -6,21 +6,24 @@ It is organised into _scripts_ which perform a particular task, or a series of t
 
 It can be built for Docker
 
-## Platform.sh
-
-_Export_ tasks require a machine-to-machine access token for [Platform.sh](https://console.platform.sh)
-
-- [Exporting users from THE UMS](docs/exporting-users-from-the-ums.md)
-
-## Auth0
-
-_Import_ tasks require machine-to-machine credentials for [Auth0](https://manage.auth0.com)
-
-- [Importing users to Auth0](docs/importing-users-to-auth0.md)
-
 ## Set-up
 
-These documents assume that a developer is preparing their _development environment_ to perform tasks manually but the same configuration is required for _production_
+### Platform.sh
+
+You should create an API access token for [Platform.sh](https://console.platform.sh)
+
+- [Creating an API access token for Platform.sh](docs/creating-an-api-access-token.md)
+
+### Auth0
+
+You should create _either_ a manual or a programmatic acccess token for [Auth0](https://manage.auth0.com)
+
+- About [Auth0 manual and programmatic access tokens](docs/auth0-manual-and-programmatic-access-tokens.md)
+- [Creating a programmatic access token](docs/creating-a-programmatic-access-token.md)
+
+### Scripts
+
+These documents assume that a developer is preparing their _development environment_ to perform tasks manually but much of the same configuration is required for _production_
 
 - [Exporting users from THE UMS](docs/exporting-users-from-the-ums.md)
 - [Transforming users to Auth0 JSON](docs/transforming-users-to-auth0-json.md)
@@ -28,11 +31,14 @@ These documents assume that a developer is preparing their _development environm
 - [Exporting users from Auth0](docs/exporting-users-from-auth0.md)
 - [Validation](docs/validation.md)
 
-## Start
+## Starting with `npm start`
+
+- When starting with `npm start` a secure tunnel using Platform.sh is opened automatically and _you need not provide connection configuration for MariaDB_
+- When starting without `npm start` you must [open a secure tunnel](docs/logging-in-to-platformsh-and-opening-a-tunnel.md) and _you must provide connection configuration for [MariaDB](docs/mariadb.md), too_
 
 A `.env.default` file in the project root describes the _required_ environment variables from which you can create a `.env` file
 
-To perform the complete series of tasks you can populate your `.env` file with the remaining environment variables
+You can populate your `.env` file with the remaining environment variables [documented in **Scripts**](#scripts)
 
 ```bash
 npm start
@@ -47,11 +53,6 @@ npm start -- \
   --PLATFORM_BRANCH '<PLATFORM BRANCH>' \
   --PLATFORMSH_CLI_TOKEN '<PLATFORMSH CLI TOKEN>' \
   --PLATFORMSH_CLI_NO_INTERACTION '<PLATFORMSH CLI NO INTERACTION>' \
-  --MARIADB_USER '<MARIADB USER>' \
-  --MARIADB_PASSWORD '<MARIADB PASSWORD>' \
-  --MARIADB_HOST '<MARIADB HOST>' \
-  --MARIADB_PORT '<MARIADB PORT>' \
-  --MARIADB_DATABASE '<MARIADB DATABASE>' \
   --AUTH0_JSON_DIRECTORY '<AUTH0 JSON DIRECTORY>' \
   --AUTH0_DOMAIN '<AUTH0 DOMAIN>' \
   --AUTH0_CONNECTION_ID '<AUTH0 CONNECTION ID>' \

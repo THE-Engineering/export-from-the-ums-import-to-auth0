@@ -4,11 +4,15 @@ Note that this script expects a file path _not_ a directory path
 
 You should [login to Platform.sh at the command line and open a tunnel](logging-in-to-platformsh-and-opening-a-tunnel.md) to production or staging before proceeding
 
-### Starting
+### `users`
 
 You need
 
+- The _MariaDB User_
 - The _MariaDB Password_
+- The _MariaDB Host_
+- The _MariaDB Port_
+- The _MariaDB Database_
 
 With NPM
 

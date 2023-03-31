@@ -20,13 +20,36 @@ echo ✨
 
 platform_tunnel_open;
 
-MARIADB_PASSWORD=$(get_mariadb_password)
-
 platform_tunnel_list;
+
+if ! has_mariadb_user;
+then
+  MARIADB_USER=$(get_mariadb_user)
+fi
+
+if ! has_mariadb_password;
+then
+  MARIADB_PASSWORD=$(get_mariadb_password)
+fi
+
+if ! has_mariadb_host;
+then
+  MARIADB_HOST=$(get_mariadb_host)
+fi
+
+if ! has_mariadb_port;
+then
+  MARIADB_PORT=$(get_mariadb_port)
+fi
+
+if ! has_mariadb_database;
+then
+  MARIADB_DATABASE=$(get_mariadb_database)
+fi
 
 if ! has_mariadb;
 then
-  echo -e 1>&2 "Required environment variables must be defined (2):"; # "Required environment variables \$MARIADB_USER \$MARIADB_PASSWORD \$MARIADB_HOST \$MARIADB_PORT \$MARIADB_DATABASE must be defined"
+  echo -e 1>&2 "Required environment variables must be defined (2):";
   ! has_mariadb_user && \
     echo -e 1>&2 "\033[0;31m • \033[0m\$MARIADB_USER"
   ! has_mariadb_password && \
@@ -68,7 +91,7 @@ then
     then
       if ! has_auth0_programmatic_token;
       then
-        echo -e 1>&2 "Required environment variables must be defined (2):"; # "Required environment variables \$AUTH0_DOMAIN \$AUTH0_CONNECTION_ID \$AUTH0_ACCESS_TOKEN must be defined"
+        echo -e 1>&2 "Required environment variables must be defined (2):";
         ! has_auth0_domain && \
           echo -e 1>&2 "\033[0;31m • \033[0m\$AUTH0_DOMAIN"
         ! has_auth0_connection_id && \
@@ -82,7 +105,7 @@ then
 
       if ! has_auth0_manual_token;
       then
-        echo -e 1>&2 "Required environment variables must be defined (3):"; # "Required environment variables \$AUTH0_DOMAIN \$AUTH0_CONNECTION_ID \$AUTH0_CLIENT_ID \$AUTH0_CLIENT_SECRET \$AUTH0_RESOURCE must be defined"
+        echo -e 1>&2 "Required environment variables must be defined (3):";
         ! has_auth0_domain && \
           echo -e 1>&2 "\033[0;31m • \033[0m\$AUTH0_DOMAIN"
         ! has_auth0_connection_id && \

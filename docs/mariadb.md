@@ -1,6 +1,6 @@
 # MariaDB
 
-To connect to the UMS MariaDB instance you will need either to be running the database on localhost, or to open a secure tunnel using _Platform.sh_ to the appropriate environment
+To connect to the UMS MariaDB instance you must have open a secure tunnel using Platform.sh to the appropriate environment
 
 ## MariaDB connection configuration
 

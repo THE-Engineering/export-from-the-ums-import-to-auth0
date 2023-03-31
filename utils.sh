@@ -4,6 +4,8 @@ PLATFORM_TUNNEL_OPEN=.platform/tunnel-open.log
 PLATFORM_TUNNEL_CLOSE=.platform/tunnel-close.log
 PLATFORM_TUNNEL_LIST=.platform/tunnel-list.log
 
+MARIADB="mysql://([a-z0-9]*):([a-z0-9]*)@([a-zA-Z0-9\.\-\_]*):([0-9]*)/([a-zA-Z]*)"
+
 platform_tunnel_open () {
   rm "$PLATFORM_TUNNEL_OPEN" 2> /dev/null
   platform tunnel:open --project "$PLATFORM_PROJECT" --environment "$PLATFORM_BRANCH" --no-interaction &> "$PLATFORM_TUNNEL_OPEN"
@@ -104,6 +106,10 @@ has_mariadb_user () {
   fi
 }
 
+get_mariadb_user () {
+  [[ "$(<$PLATFORM_TUNNEL_OPEN)" =~ $MARIADB ]] && echo "${BASH_REMATCH[1]}"
+}
+
 has_mariadb_password () {
   if [[ -z "$MARIADB_PASSWORD" ]];
   then
@@ -112,7 +118,7 @@ has_mariadb_password () {
 }
 
 get_mariadb_password () {
-  [[ "$(<$PLATFORM_TUNNEL_OPEN)" =~ admin:([a-z0-9]*)@ ]] && echo "${BASH_REMATCH[1]}"
+  [[ "$(<$PLATFORM_TUNNEL_OPEN)" =~ $MARIADB ]] && echo "${BASH_REMATCH[2]}"
 }
 
 has_mariadb_host () {
@@ -122,6 +128,10 @@ has_mariadb_host () {
   fi
 }
 
+get_mariadb_host () {
+  [[ "$(<$PLATFORM_TUNNEL_OPEN)" =~ $MARIADB ]] && echo "${BASH_REMATCH[3]}"
+}
+
 has_mariadb_port () {
   if [[ -z "$MARIADB_PORT" ]];
   then
@@ -129,11 +139,19 @@ has_mariadb_port () {
   fi
 }
 
+get_mariadb_port () {
+  [[ "$(<$PLATFORM_TUNNEL_OPEN)" =~ $MARIADB ]] && echo "${BASH_REMATCH[4]}"
+}
+
 has_mariadb_database () {
   if [[ -z "$MARIADB_DATABASE" ]];
   then
     false
   fi
+}
+
+get_mariadb_database () {
+  [[ "$(<$PLATFORM_TUNNEL_OPEN)" =~ $MARIADB ]] && echo "${BASH_REMATCH[5]}"
 }
 
 has_mariadb () {

@@ -17,7 +17,7 @@ if ! has_auth0;
 then
   if ! has_auth0_programmatic_token;
   then
-    echo -e 1>&2 "Required environment variables must be defined (2):"; # "Required environment variables \$AUTH0_DOMAIN \$AUTH0_CONNECTION_ID \$AUTH0_ACCESS_TOKEN must be defined"
+    echo -e 1>&2 "Required environment variables must be defined (2):";
     ! has_auth0_domain && \
       echo -e 1>&2 "\033[0;31m • \033[0m\$AUTH0_DOMAIN"
     ! has_auth0_connection_id && \
@@ -31,7 +31,7 @@ then
 
   if ! has_auth0_manual_token;
   then
-    echo -e 1>&2 "Required environment variables must be defined (3):"; # "Required environment variables \$AUTH0_DOMAIN \$AUTH0_CONNECTION_ID \$AUTH0_CLIENT_ID \$AUTH0_CLIENT_SECRET \$AUTH0_RESOURCE must be defined"
+    echo -e 1>&2 "Required environment variables must be defined (3):";
     ! has_auth0_domain && \
       echo -e 1>&2 "\033[0;31m • \033[0m\$AUTH0_DOMAIN"
     ! has_auth0_connection_id && \
