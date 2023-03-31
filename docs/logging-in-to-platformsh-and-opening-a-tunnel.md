@@ -32,7 +32,7 @@ Note the connection configuration after `mysql://`
 - The _MariaDB Port_ is `30001`
 - The _MariaDB Database_ is `main`
 
-You should each of the values to your device's clipboard
+You should copy each of the values to your device's clipboard
 
 Either paste them as the value to the corresponding key in your `.env` file
 
