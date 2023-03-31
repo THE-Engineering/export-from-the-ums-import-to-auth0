@@ -20,16 +20,37 @@ Enter an environment ID (in this case `master`) then enter `y` to open the tunne
 
 <img alt="Enter `master` then `y`" src="images/3-master.png" width="525px" />
 
-Note the credentials after `mysql://` - The username is `admin` and the password is (in this image) _redacted_. You should copy the password to your device's clipboard
+# 3 - MariaDB connection configuration
 
-Either paste it as value to the corresponding key in your `.env` file
+Note the connection configuration after `mysql://`
+
+<img alt="Enter `master` then `y`" src="images/3-master.png" width="525px" />
+
+- The _MariaDB User_ is `admin`
+- The _MariaDB Password_ is (in this image) _redacted_
+- The _MariaDB Host_ is `127.0.0.1`
+- The _MariaDB Port_ is `30001`
+- The _MariaDB Database_ is `main`
+
+You should each of the values to your device's clipboard
+
+Either paste them as the value to the corresponding key in your `.env` file
 
 ```dotenv
-MARIADB_PASSWORD=<MARIADB PASSWORD>
+MARIADB_USER='<MARIADB USER>'
+MARIADB_PASSWORD='<MARIADB PASSWORD>'
+MARIADB_HOST='<MARIADB HOST>'
+MARIADB_PORT=<MARIADB PORT>
+MARIADB_DATABASE='<MARIADB DATABASE>'
 ```
 
-Or as an argument on the command line
+Or as arguments on the command line
 
 ```bash
-npm run user -- --MARIADB_PASSWORD '<MARIADB PASSWORD>'
+npm run user -- \
+  --MARIADB_USER '<MARIADB USER>' \
+  --MARIADB_PASSWORD '<MARIADB PASSWORD>' \
+  --MARIADB_HOST '<MARIADB HOST>' \
+  --MARIADB_PORT <MARIADB PORT> \
+  --MARIADB_DATABASE '<MARIADB DATABASE>'
 ```
