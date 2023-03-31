@@ -1,6 +1,6 @@
 # MariaDB
 
-To connect to the UMS MariaDB instance you must have [open a secure tunnel using Platform.sh](./logging-in-to-platformsh-and-opening-a-tunnel.md) to the appropriate environment
+To connect to the UMS MariaDB instance you must [open a secure tunnel using Platform.sh](./logging-in-to-platformsh-and-opening-a-tunnel.md) to the appropriate environment
 
 ## MariaDB connection configuration
 
