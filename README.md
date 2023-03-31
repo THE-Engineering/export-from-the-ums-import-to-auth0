@@ -34,7 +34,7 @@ These documents assume that a developer is preparing their _development environm
 ## Starting with `npm start`
 
 - When starting with `npm start` a secure tunnel using Platform.sh is opened automatically and _you need not provide connection configuration for MariaDB_
-- When starting without `npm start` you must [open a secure tunnel](docs/logging-in-to-platformsh-and-opening-a-tunnel.md) and _you must provide connection configuration for [MariaDB](docs/mariadb.md), too_
+- When starting without `npm start` you must [open a secure tunnel](docs/logging-in-to-platformsh-and-opening-a-tunnel.md) and _you must [provide connection configuration for MariaDB](docs/mariadb.md), too_
 
 A `.env.default` file in the project root describes the _required_ environment variables from which you can create a `.env` file
 
