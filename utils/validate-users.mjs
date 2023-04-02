@@ -31,7 +31,6 @@ const EMAIL = /^[\w-\.]+@([\w-]+\.)+[a-z]{2,}$/i // eslint-disable-line no-usele
  */
 export default function validate ({
   mail,
-  // name,
   first_name: firstName,
   last_name: lastName,
   pass,
@@ -39,7 +38,6 @@ export default function validate ({
 }) {
   return Boolean(
     EMAIL.test(mail || '') &&
-    // name &&
     (firstName || '').trim() &&
     (lastName || '').trim() &&
     pass &&

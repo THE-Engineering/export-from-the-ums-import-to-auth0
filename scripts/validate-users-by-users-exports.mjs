@@ -17,7 +17,6 @@ import writeToFilePath from '#utils/write-to-file-path'
 import hasUserEmail from '#utils/has-user-email'
 import getUserEmail from '#utils/get-user-email'
 import getUserMail from '#utils/get-user-mail'
-import validate from '#utils/validate-users'
 import sortByUid from '#utils/sort-by-uid'
 import handleError from '#utils/handle-error'
 
@@ -26,17 +25,14 @@ function toSet (usersExports) {
     new Set(
       usersExports
         .filter(hasUserEmail)
-        .map((user) => getUserEmail(user).toLowerCase())
+        .map((user) => getUserEmail(user).trim().toLowerCase())
     )
   )
 }
 
 function getReduce (usersExports) {
   return function reduce (accumulator, user) {
-    if (!validate(user)) accumulator.push(user)
-    else {
-      if (!usersExports.has(getUserMail(user).toLowerCase())) accumulator.push(user)
-    }
+    if (!usersExports.has(getUserMail(user).trim().toLowerCase())) accumulator.push(user)
 
     return accumulator
   }

@@ -29,6 +29,10 @@ README.md
 
 # JSON
 /json
+.platform
+.users-exports
+.users-imports
+.validate
 
 # Shell
 /scripts/*.sh

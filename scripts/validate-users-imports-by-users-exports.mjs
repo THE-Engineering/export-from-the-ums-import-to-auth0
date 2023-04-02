@@ -25,7 +25,7 @@ function toSet (usersExports) {
     new Set(
       usersExports
         .filter(hasUserEmail)
-        .map((user) => getUserEmail(user).toLowerCase())
+        .map((user) => getUserEmail(user).trim().toLowerCase())
     )
   )
 }
@@ -34,7 +34,7 @@ function getReduce (usersExports) {
   return function reduce (accumulator, user) {
     if (!validate(user)) accumulator.push(user)
     else {
-      if (!usersExports.has(getUserEmail(user).toLowerCase())) accumulator.push(user)
+      if (!usersExports.has(getUserEmail(user).trim().toLowerCase())) accumulator.push(user)
     }
 
     return accumulator
