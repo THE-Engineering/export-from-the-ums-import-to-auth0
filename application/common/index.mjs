@@ -72,14 +72,36 @@ export async function getJobById (id) {
   return response.json()
 }
 
-export async function waitForJob (id) {
+async function app (id) {
   const status = await getJobById(id)
 
   if (getStatus(status) === 'completed') return status
+}
 
-  await sleepFor(DURATION)
+async function run (id, done) {
+  try {
+    const status = await app(id)
+    if (status) done(null, status)
+    else {
+      setImmediate(async function handleImmediate () {
+        await sleepFor(DURATION)
 
+        await run(id, done)
+      })
+    }
+  } catch (e) {
+    done(e)
+  }
+}
+
+export function waitForJob (id) {
   return (
-    await waitForJob(id)
+    new Promise((resolve, reject) => {
+      run(id, function handleComplete (e, v) {
+        (!e)
+          ? resolve(v)
+          : reject(e)
+      })
+    })
   )
 }
