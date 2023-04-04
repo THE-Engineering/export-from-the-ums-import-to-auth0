@@ -1,6 +1,6 @@
 #!/bin/bash
 
-has_archive_pattern () {
+has_archive_directory_pattern () {
   [[ "$1" =~ [0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]+ ]]
 }
 
@@ -12,7 +12,7 @@ dirs () {
     then
       local directory="$child"
       dirs "$directory"
-      if has_archive_pattern "$directory" ;
+      if has_archive_directory_pattern "$directory" ;
       then
         rm -rf "$directory"
       fi
