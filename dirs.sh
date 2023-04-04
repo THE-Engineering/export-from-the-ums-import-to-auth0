@@ -1,15 +1,20 @@
 #!/bin/bash
 
+has_archive_pattern () {
+  [[ "$1" =~ [0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]+ ]]
+}
+
 dirs () {
-  echo "$1"
-  for f in "$1"/*;
+  local current_directory="$1"
+  for child in "$current_directory"/*;
   do
-    if [ -d "$f" ];
+    if [ -d "$child" ];
     then
-      dirs "$f"
-      if [[ "$f" =~ [0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]+ ]];
+      local directory="$child"
+      dirs "$directory"
+      if has_archive_pattern "$directory" ;
       then
-        rm -rf "$f"
+        rm -rf "$directory"
       fi
     fi
   done
