@@ -8,8 +8,8 @@ const PATTERN = /={1,2}$/
 
 export default function transform ({
   mail: email,
-  first_name: firstName,
-  last_name: lastName,
+  first_name: givenName,
+  last_name: familyName,
   salt,
   pass: hash,
   uid
@@ -19,8 +19,8 @@ export default function transform ({
 
   return {
     email,
-    given_name: (firstName || '').trim(),
-    family_name: (lastName || '').trim(),
+    given_name: (givenName || '').trim(),
+    family_name: (familyName || '').trim(),
     custom_password_hash: {
       algorithm: 'pbkdf2',
       hash: {
