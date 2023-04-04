@@ -2,9 +2,9 @@
 
 Note that this script expects a directory path _not_ a file path
 
-You should _transform_ the users to Auth0 JSON before proceeding
+You should _transform_ the users from THE UMS JSON to Auth0 JSON before proceeding
 
-- [Transforming users from to Auth0 JSON](./transforming-users-to-auth0-json.md)
+- [Transforming users from THE UMS JSON to Auth0 JSON](./transforming-users-from-the-ums-json-to-auth0-json.md)
 
 You should create _either_ a manual or a programmatic acccess token before proceeding
 

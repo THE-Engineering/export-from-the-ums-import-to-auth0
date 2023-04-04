@@ -22,13 +22,10 @@ const presets = [
   ]
 ]
 
-const plugins = []
-
 module.exports = (api) => {
   if (api) api.cache.using(env)
 
   return {
-    presets,
-    plugins
+    presets
   }
 }
