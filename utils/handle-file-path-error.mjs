@@ -1,3 +1,5 @@
+import hasLogError from './has-log-error.mjs'
+
 export default function handleFilePathError (e) {
   const {
     code
@@ -14,4 +16,6 @@ export default function handleFilePathError (e) {
         : `💥 ${message}`
     )
   }
+
+  if (hasLogError()) console.error(e)
 }

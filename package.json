@@ -58,6 +58,7 @@
     "eslint-plugin-promise": "^6.1.1"
   },
   "imports": {
+    "#config": "./config/index.mjs",
     "#config/*": "./config/*.mjs",
     "#utils/*": "./utils/*.mjs",
     "#application/*": "./application/*.mjs"
