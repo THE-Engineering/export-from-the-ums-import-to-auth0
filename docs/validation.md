@@ -41,13 +41,13 @@ To generate any of the JSON files you should set the corresponding numeric optio
 Assuming options `1`, `3`, and `7`, either
 
 ```bash
-npm run validation -- -137
+npm run validate -- -137
 ```
 
 Or
 
 ```bash
-npm run validation -- -1 -3 -7
+npm run validate -- -1 -3 -7
 ```
 
 ## Otherwise
@@ -55,13 +55,13 @@ npm run validation -- -1 -3 -7
 Similarly, assuming options `1`, `3`, and `7`, either
 
 ```bash
-./validation.sh -137
+./validate.sh -137
 ```
 
 Or
 
 ```bash
-./validation.sh -1 -3 -7
+./validate.sh -1 -3 -7
 ```
 
 ## With `.env`

@@ -18,6 +18,7 @@ async function app () {
   await ensureDir(dirname(DESTINATION))
 
   console.log('🚀')
+
   try {
     const users = await getUsers()
     await writeToFilePath(DESTINATION, users.sort(sortByUid))

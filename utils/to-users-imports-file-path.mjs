@@ -2,9 +2,9 @@ import {
   join
 } from 'node:path'
 
-export default function toUsersImportsFilePath (filePath, from, to) {
+export default function toUsersImportsFilePath (filePath, fileName) {
   return join(
     filePath,
-    `${from} - ${to}.json`
+    fileName + '.json'
   )
 }

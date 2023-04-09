@@ -12,14 +12,15 @@ import {
 } from '#config/validate-users'
 import readFromFilePath from '#utils/read-from-file-path'
 import writeToFilePath from '#utils/write-to-file-path'
-import validate from '#utils/validate-users'
+import validateUsers from '#utils/validate-users'
 import sortByUid from '#utils/sort-by-uid'
 import handleError from '#utils/handle-error'
 
-function reduce (accumulator, user) {
-  if (!validate(user)) accumulator.push(user)
-
-  return accumulator
+function validate (users = []) {
+  return (
+    validateUsers(users)
+      .sort(sortByUid)
+  )
 }
 
 async function app () {
@@ -29,8 +30,11 @@ async function app () {
   console.log('🚀')
 
   try {
-    const users = await readFromFilePath(ORIGIN)
-    await writeToFilePath(DESTINATION, users.reduce(reduce, []).sort(sortByUid))
+    await writeToFilePath(DESTINATION,
+      validate(
+        await readFromFilePath(ORIGIN)
+      )
+    )
 
     console.log('👍')
   } catch (e) {

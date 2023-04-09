@@ -79,7 +79,7 @@ then
     # shellcheck disable=SC2181
     if [[ $? == 0 ]];
     then
-      if [[ ! -f "$DEFAULT_USERS_EXPORTS_JSON_FILE" ]];
+      if [[ ! -f "${USERS_EXPORTS_JSON_FILE-$DEFAULT_USERS_EXPORTS_JSON_FILE}" ]];
       then
         # shellcheck disable=SC2016
         echo 'Run `./users-exports.sh`'

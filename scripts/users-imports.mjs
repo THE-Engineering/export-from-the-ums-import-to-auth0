@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
 import {
+  dirname
+} from 'node:path'
+import {
   ensureDir
 } from 'fs-extra'
 import {
@@ -8,9 +11,10 @@ import {
   DESTINATION,
   USERS_IMPORTS_PATH
 } from '#config/users-imports'
-import getUsersFilePathList from '#utils/get-users-file-path-list'
+import formatNumber from '#utils/format-number'
 import toStatusFilePath from '#utils/to-status-file-path'
 import toUsersImportsFilePath from '#utils/to-users-imports-file-path'
+import readFromFilePath from '#utils/read-from-file-path'
 import writeToFilePath from '#utils/write-to-file-path'
 import TooManyRequestsError, {
   TOO_MANY_REQUESTS
@@ -26,20 +30,22 @@ function getStatusCode ({ statusCode } = {}) {
 }
 
 async function app () {
-  await ensureDir(ORIGIN)
+  await ensureDir(dirname(ORIGIN))
   await ensureDir(DESTINATION)
 
   console.log('🚀')
 
-  const filePathList = await getUsersFilePathList(ORIGIN)
-  for await (const { users, from, to } of genUsers(filePathList)) {
-    console.log(`👉 ${from} - ${to}`)
+  const fileData = await readFromFilePath(ORIGIN)
+  for await (const { users, from, to } of genUsers(fileData)) {
+    const fileName = `${formatNumber(from)} - ${formatNumber(to)}`
+
+    console.log(`👉 ${fileName}`)
 
     try {
-      await writeToFilePath(toUsersImportsFilePath(USERS_IMPORTS_PATH, from, to), users)
+      await writeToFilePath(toUsersImportsFilePath(USERS_IMPORTS_PATH, fileName), users)
 
       const status = await createJob(users)
-      await writeToFilePath(toStatusFilePath(DESTINATION, `${from} - ${to}`), status)
+      await writeToFilePath(toStatusFilePath(DESTINATION, fileName), status)
 
       if (getStatusCode(status) === TOO_MANY_REQUESTS) throw new TooManyRequestsError()
 
@@ -49,7 +55,7 @@ async function app () {
 
       if (id) {
         const status = await waitForJob(id)
-        await writeToFilePath(toStatusFilePath(DESTINATION, `${from} - ${to}`), status)
+        await writeToFilePath(toStatusFilePath(DESTINATION, fileName), status)
       }
 
       console.log('👍')

@@ -6,7 +6,7 @@ import {
 
 const PATTERN = /={1,2}$/
 
-export default function transform ({
+export default function transformUser ({
   mail: email,
   first_name: givenName,
   last_name: familyName,

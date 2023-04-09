@@ -10,26 +10,32 @@ import {
   ORIGIN,
   DESTINATION
 } from '#config/transform'
-import toUserFilePath from '#utils/to-user-file-path'
 import readFromFilePath from '#utils/read-from-file-path'
 import writeToFilePath from '#utils/write-to-file-path'
 import sortByUid from '#utils/sort-by-uid'
-import getUid from '#utils/get-uid'
-import transform from '#utils/transform'
+import transformUsers from '#utils/transform-users'
 import handleError from '#utils/handle-error'
+
+function transform (users = []) {
+  return (
+    transformUsers(
+      users.sort(sortByUid)
+    )
+  )
+}
 
 async function app () {
   await ensureDir(dirname(ORIGIN))
-  await ensureDir(DESTINATION)
+  await ensureDir(dirname(DESTINATION))
 
   console.log('🚀')
+
   try {
-    const users = (await readFromFilePath(ORIGIN))
-      .sort(sortByUid)
-    while (users.length) {
-      const user = users.shift()
-      await writeToFilePath(toUserFilePath(DESTINATION, getUid(user)), transform(user))
-    }
+    await writeToFilePath(DESTINATION,
+      transform(
+        await readFromFilePath(ORIGIN)
+      )
+    )
 
     console.log('👍')
   } catch (e) {
