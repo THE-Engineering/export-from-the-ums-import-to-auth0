@@ -27,9 +27,9 @@ for flag in "$@";
 do
   shift
   case "$flag" in
-    '--hard')   set -- "$@" '-h'   ;;
-    '--soft')   set -- "$@" '-s'   ;;
-    *)          set -- "$@" "$flag" ;;
+    '--hard') set -- "$@" '-h'    ;;
+    '--soft') set -- "$@" '-s'    ;;
+    *)        set -- "$@" "$flag" ;;
   esac
 done
 
@@ -48,7 +48,7 @@ do
   esac
 done
 
-if $HARD ;
+if $HARD;
 then
   echo ✨
   rm -rf ./json
@@ -59,7 +59,7 @@ then
   echo 👋
   exit 0
 else
-  if $SOFT ;
+  if $SOFT;
   then
     echo ✨
     dirs ./json
@@ -70,10 +70,7 @@ else
     echo 👋
     exit 0
   else
-    echo 💩
+    echo 💥
     exit 1
   fi
 fi
-
-echo 💥
-exit 1
