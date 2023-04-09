@@ -140,7 +140,7 @@ then
 
     echo Transforming users
 
-    NODE_OPTIONS=--no-warnings node ./scripts/transform-users.mjs \
+    NODE_OPTIONS="--no-warnings --max-old-space-size=4096" node ./scripts/transform-users.mjs \
       --ORIGIN "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}" \
       --DESTINATION "${AUTH0_JSON_FILE-$DEFAULT_AUTH0_JSON_FILE}"
 

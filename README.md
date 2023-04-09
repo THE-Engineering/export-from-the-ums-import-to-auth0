@@ -73,13 +73,17 @@ npm start -- \
 
 You can _combine_ environment variables with command line arguments, in which case the latter take precedence over the former
 
-## Building the Docker image
+## Docker
+
+Docker must provide adequate resources to the container of _at minimum_ 4GB RAM.
+
+### Building the Docker image
 
 ```bash
 docker build -t export-from-the-ums-import-to-auth0 .
 ```
 
-## Starting the Docker container
+### Starting the Docker container
 
 ```bash
 docker compose up -d
