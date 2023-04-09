@@ -75,7 +75,7 @@ You can _combine_ environment variables with command line arguments, in which ca
 
 ## Docker
 
-Docker must provide adequate resources to the container of _at minimum_ 4GB RAM.
+Docker must provide the container with _at minimum_ 4GB RAM.
 
 ### Building the Docker image
 
