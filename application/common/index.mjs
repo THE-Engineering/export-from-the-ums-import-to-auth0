@@ -7,6 +7,7 @@ import sleepFor, {
   ONE_SECOND,
   QUARTER_SECOND
 } from '#utils/sleep-for'
+import handleError from '#utils/handle-error'
 
 const LENGTH = 475000 // 500000 - 5%
 
@@ -56,14 +57,18 @@ export async function * genUsers (fileData) {
 }
 
 export async function getJobById (id) {
-  const response = await fetch(`https://${AUTH0_DOMAIN}/api/v2/jobs/${id}`, {
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${AUTH0_ACCESS_TOKEN || await getAccessToken()}`
-    }
-  })
+  try {
+    const response = await fetch(`https://${AUTH0_DOMAIN}/api/v2/jobs/${id}`, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${AUTH0_ACCESS_TOKEN || await getAccessToken()}`
+      }
+    })
 
-  return response.json()
+    return response.json()
+  } catch (e) {
+    handleError(e)
+  }
 }
 
 async function app (id) {

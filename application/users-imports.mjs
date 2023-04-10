@@ -8,6 +8,7 @@ import {
   AUTH0_UPSERT
 } from '#config/users-imports'
 import getAccessToken from '#utils/get-access-token'
+import handleError from '#utils/handle-error'
 
 export {
   genUsers,
@@ -38,14 +39,18 @@ async function getFormData (users) {
 }
 
 export default async function createJob (users) {
-  const response = await fetch(`https://${AUTH0_DOMAIN}/api/v2/jobs/users-imports`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${AUTH0_ACCESS_TOKEN || await getAccessToken()}`
-    },
-    body: await getFormData(users)
-  })
+  try {
+    const response = await fetch(`https://${AUTH0_DOMAIN}/api/v2/jobs/users-imports`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${AUTH0_ACCESS_TOKEN || await getAccessToken()}`
+      },
+      body: await getFormData(users)
+    })
 
-  return response.json()
+    return response.json()
+  } catch (e) {
+    handleError(e)
+  }
 }

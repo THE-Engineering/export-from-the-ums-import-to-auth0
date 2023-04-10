@@ -10,6 +10,7 @@ import getUserId from '#utils/get-user-id'
 import sleepFor, {
   ONE_SECOND
 } from '#utils/sleep-for'
+import handleError from '#utils/handle-error'
 
 export {
   genUsers
@@ -17,29 +18,36 @@ export {
 
 export async function getUsersByEmail (email) {
   const url = new URL(`https://${AUTH0_DOMAIN}/api/v2/users`)
+  const urlSearchParams = new URLSearchParams({ q: email })
 
-  url.search = new URLSearchParams({
-    q: email
-  })
+  url.search = urlSearchParams
 
-  const response = await fetch(url, {
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${AUTH0_ACCESS_TOKEN || await getAccessToken()}`
-    }
-  })
+  try {
+    const response = await fetch(url, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${AUTH0_ACCESS_TOKEN || await getAccessToken()}`
+      }
+    })
 
-  return response.json()
+    return response.json()
+  } catch (e) {
+    handleError(e)
+  }
 }
 
 export async function deleteUserById (id) {
-  await fetch(`https://${AUTH0_DOMAIN}/api/v2/users/${id}`, {
-    method: 'DELETE',
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${AUTH0_ACCESS_TOKEN || await getAccessToken()}`
-    }
-  })
+  try {
+    await fetch(`https://${AUTH0_DOMAIN}/api/v2/users/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${AUTH0_ACCESS_TOKEN || await getAccessToken()}`
+      }
+    })
+  } catch (e) {
+    handleError(e)
+  }
 }
 
 export async function removeByEmail (users = []) {
