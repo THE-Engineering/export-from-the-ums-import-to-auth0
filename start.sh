@@ -6,7 +6,11 @@ set +a
 
 source ./utils.sh
 
+get_args "$@";
+
 trap platform_tunnel_close EXIT
+
+START=$EPOCHSECONDS
 
 DEFAULT_USERS_JSON_FILE=./json/users.json
 DEFAULT_AUTH0_JSON_FILE=./json/auth0.json
@@ -73,15 +77,13 @@ archive_file "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}"
 # shellcheck disable=SC2181
 if [[ $? == 0 ]];
 then
-  echo Exporting users from THE UMS
+  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+  # Step 1 - Export users                                                     #
+  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-  node ./scripts/users.mjs \
-    --MARIADB_USER "$MARIADB_USER" \
-    --MARIADB_PASSWORD "$MARIADB_PASSWORD" \
-    --MARIADB_HOST "$MARIADB_HOST" \
-    --MARIADB_PORT "$MARIADB_PORT" \
-    --MARIADB_DATABASE "$MARIADB_DATABASE" \
-    --DESTINATION "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}"
+  echo -e 'Exporting users from THE UMS \033[0;90m1\033[0m'
+
+  users;
 
   platform_tunnel_close;
 
@@ -138,28 +140,90 @@ then
 
     archive_file "${AUTH0_JSON_FILE-$DEFAULT_AUTH0_JSON_FILE}"
 
-    echo Transforming users
+    echo -e 'Transforming users \033[0;90m1\033[0m'
 
-    NODE_OPTIONS="--no-warnings --max-old-space-size=4096" node ./scripts/transform-users.mjs \
-      --ORIGIN "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}" \
-      --DESTINATION "${AUTH0_JSON_FILE-$DEFAULT_AUTH0_JSON_FILE}"
+    transform_users;
 
     # shellcheck disable=SC2181
     if [[ $? == 0 ]];
     then
-      echo Importing users to Auth0
+      echo -e 'Importing users to Auth0 \033[0;90m1\033[0m'
 
-      NODE_OPTIONS=--no-warnings node ./scripts/users-imports.mjs \
-        --AUTH0_DOMAIN "$AUTH0_DOMAIN" \
-        --AUTH0_CONNECTION_ID "$AUTH0_CONNECTION_ID" \
-        --AUTH0_CLIENT_ID "$AUTH0_CLIENT_ID" \
-        --AUTH0_CLIENT_SECRET "$AUTH0_CLIENT_SECRET" \
-        --AUTH0_AUDIENCE "$AUTH0_AUDIENCE" \
-        --AUTH0_ACCESS_TOKEN_ENDPOINT "$AUTH0_ACCESS_TOKEN_ENDPOINT" \
-        --AUTH0_UPSERT "${AUTH0_UPSERT-$DEFAULT_AUTH0_UPSERT}" \
-        --ORIGIN "${AUTH0_JSON_FILE-$DEFAULT_AUTH0_JSON_FILE}" \
-        --USERS_IMPORTS_PATH "${USERS_IMPORTS_JSON_DIRECTORY-$DEFAULT_USERS_IMPORTS_JSON_DIRECTORY}" \
-        --DESTINATION "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
+      users_imports;
+
+      cp "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}" ./json/users.users.json
+
+      # shellcheck disable=SC2181
+      if [[ $? == 0 ]];
+      then
+        # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+        # Step 2 (a) - Export users by date changed (since $DATE_CHANGED or $START) #
+        # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+        echo -e 'Exporting users from THE UMS \033[0;90m2 (a)\033[0m'
+
+        platform_tunnel_open;
+
+        platform_tunnel_list;
+
+        users_by_date_changed;
+
+        platform_tunnel_close;
+
+        # shellcheck disable=SC2181
+        if [[ $? == 0 ]];
+        then
+          echo -e 'Transforming users \033[0;90m2 (a)\033[0m'
+
+          transform_users;
+
+          # shellcheck disable=SC2181
+          if [[ $? == 0 ]];
+          then
+            echo -e 'Importing users to Auth0 \033[0;90m2 (a)\033[0m'
+
+            users_imports;
+
+            cp "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}" ./json/users-by-date-changed.users.json
+          fi
+        fi
+      fi
+
+      # shellcheck disable=SC2181
+      if [[ $? == 0 ]];
+      then
+        # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+        # Step 2 (b) - Export users by date created (since $DATE_CREATED or $START) #
+        # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+        echo -e 'Exporting users from THE UMS \033[0;90m2 (b)\033[0m'
+
+        platform_tunnel_open;
+
+        platform_tunnel_list;
+
+        users_by_date_created;
+
+        platform_tunnel_close;
+
+        # shellcheck disable=SC2181
+        if [[ $? == 0 ]];
+        then
+          echo -e 'Transforming users \033[0;90m2 (b)\033[0m'
+
+          transform_users;
+
+          # shellcheck disable=SC2181
+          if [[ $? == 0 ]];
+          then
+            echo -e 'Importing users to Auth0 \033[0;90m2 (b)\033[0m'
+
+            users_imports;
+
+            cp "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}" ./json/users-by-date-created.users.json
+          fi
+        fi
+      fi
 
       if
         $USERS ||
@@ -170,6 +234,10 @@ then
         $USERS_IMPORTS_BY_USERS ||
         $USERS_EXPORTS_BY_USERS;
       then
+        # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+        # Step 3 - Validate                                                         #
+        # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
         params=()
 
         [[ $USERS == true ]] && params+=('-1')

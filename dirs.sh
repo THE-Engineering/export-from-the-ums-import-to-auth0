@@ -23,6 +23,9 @@ dirs () {
   done
 }
 
+echo "I was given $# argument(s):"
+printf "%s\n" "$@"
+
 for flag in "$@";
 do
   shift
@@ -33,7 +36,7 @@ do
   esac
 done
 
-while getopts 'h,s' flag;
+while getopts "h,s" flag;
 do
   case "${flag}" in
     h)

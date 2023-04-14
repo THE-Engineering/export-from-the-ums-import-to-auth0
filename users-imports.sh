@@ -6,6 +6,8 @@ set +a
 
 source ./utils.sh
 
+get_args "$@";
+
 DEFAULT_AUTH0_JSON_FILE=./json/auth0.json
 DEFAULT_AUTH0_UPSERT=true
 DEFAULT_STATUS_JSON_DIRECTORY=./json/status
@@ -64,16 +66,7 @@ if [[ $? == 0 ]];
 then
   echo Importing users to Auth0
 
-  NODE_OPTIONS=--no-warnings node ./scripts/users-imports.mjs \
-    --AUTH0_DOMAIN "$AUTH0_DOMAIN" \
-    --AUTH0_CONNECTION_ID "$AUTH0_CONNECTION_ID" \
-    --AUTH0_CLIENT_ID "$AUTH0_CLIENT_ID" \
-    --AUTH0_CLIENT_SECRET "$AUTH0_CLIENT_SECRET" \
-    --AUTH0_AUDIENCE "$AUTH0_AUDIENCE" \
-    --AUTH0_ACCESS_TOKEN_ENDPOINT "$AUTH0_ACCESS_TOKEN_ENDPOINT" \
-    --AUTH0_UPSERT "${AUTH0_UPSERT-$DEFAULT_AUTH0_UPSERT}" \
-    --ORIGIN "${AUTH0_JSON_FILE-$DEFAULT_AUTH0_JSON_FILE}" \
-    --DESTINATION "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
+  users_imports;
 
   echo 👋
   exit 0

@@ -6,6 +6,8 @@ set +a
 
 source ./utils.sh
 
+# Don't get args!
+
 DEFAULT_USERS_JSON_FILE=./json/users.json
 DEFAULT_STATUS_JSON_DIRECTORY=./json/status
 DEFAULT_USERS_IMPORTS_JSON_DIRECTORY=.users-imports
@@ -20,6 +22,8 @@ USERS_EXPORTS_BY_USERS_IMPORTS=false
 USERS_IMPORTS_BY_USERS=false
 USERS_EXPORTS_BY_USERS=false
 
+# Get args! Differently!
+
 while getopts "1234567" flag
 do
   case "${flag}" in
@@ -33,6 +37,8 @@ do
     *) exit 1;;
   esac
 done
+
+echo 🛸
 
 if
   $USERS ||

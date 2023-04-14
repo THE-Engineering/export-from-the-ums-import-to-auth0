@@ -36,37 +36,39 @@ async function app () {
   console.log('🚀')
 
   const fileData = await readFromFilePath(ORIGIN)
-  for await (const { users, from, to } of genUsers(fileData)) {
-    const fileName = `${formatNumber(from)} - ${formatNumber(to)}`
+  if (fileData.length) {
+    for await (const { users, from, to } of genUsers(fileData)) {
+      const fileName = `${formatNumber(from)} - ${formatNumber(to)}`
 
-    console.log(`👉 ${fileName}`)
+      console.log(`👉 ${fileName}`)
 
-    try {
-      await writeToFilePath(toUsersImportsFilePath(USERS_IMPORTS_PATH, fileName), users)
+      try {
+        await writeToFilePath(toUsersImportsFilePath(USERS_IMPORTS_PATH, fileName), users)
 
-      const status = await createJob(users)
-      await writeToFilePath(toStatusFilePath(DESTINATION, fileName), status)
-
-      if (getStatusCode(status) === TOO_MANY_REQUESTS) throw new TooManyRequestsError()
-
-      const {
-        id
-      } = status
-
-      if (id) {
-        const status = await waitForJob(id)
+        const status = await createJob(users)
         await writeToFilePath(toStatusFilePath(DESTINATION, fileName), status)
+
+        if (getStatusCode(status) === TOO_MANY_REQUESTS) throw new TooManyRequestsError()
+
+        const {
+          id
+        } = status
+
+        if (id) {
+          const status = await waitForJob(id)
+          await writeToFilePath(toStatusFilePath(DESTINATION, fileName), status)
+        }
+      } catch (e) {
+        if (e instanceof TooManyRequestsError) throw e
+
+        handleError(e)
+
+        process.exit(1)
       }
-
-      console.log('👍')
-    } catch (e) {
-      if (e instanceof TooManyRequestsError) throw e
-
-      handleError(e)
-
-      process.exit(1)
     }
   }
+
+  console.log('👍')
 }
 
 export default (

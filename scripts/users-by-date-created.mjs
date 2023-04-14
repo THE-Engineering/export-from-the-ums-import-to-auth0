@@ -23,12 +23,13 @@ async function app () {
   try {
     const users = await getUsersByDateCreated(DATE_CREATED)
     await writeToFilePath(DESTINATION, users.sort(sortByUid))
-    console.log('👍')
   } catch (e) {
     handleError(e)
 
     process.exit(1)
   }
+
+  console.log('👍')
 }
 
 export default app()

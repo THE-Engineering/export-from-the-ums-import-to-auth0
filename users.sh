@@ -6,6 +6,8 @@ set +a
 
 source ./utils.sh
 
+get_args "$@";
+
 trap platform_tunnel_close EXIT
 
 DEFAULT_USERS_JSON_FILE=./json/users.json

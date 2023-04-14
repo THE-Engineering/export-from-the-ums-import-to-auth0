@@ -6,6 +6,8 @@ set +a
 
 source ./utils.sh
 
+get_args "$@";
+
 trap platform_tunnel_close EXIT
 
 if [[ -z "$DATE_CHANGED" ]];
@@ -79,14 +81,9 @@ if [[ $? == 0 ]];
 then
   echo Exporting users from THE UMS
 
-  node ./scripts/users-by-date-changed.mjs \
-    --MARIADB_USER "$MARIADB_USER" \
-    --MARIADB_PASSWORD "$MARIADB_PASSWORD" \
-    --MARIADB_HOST "$MARIADB_HOST" \
-    --MARIADB_PORT "$MARIADB_PORT" \
-    --MARIADB_DATABASE "$MARIADB_DATABASE" \
-    --DESTINATION "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}" \
-    --DATE_CHANGED "${DATE_CHANGED}"
+  users_by_date_changed;
+
+  platform_tunnel_close;
 
   echo 👋
   exit 0

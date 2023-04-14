@@ -6,6 +6,8 @@ set +a
 
 source ./utils.sh
 
+get_args "$@";
+
 DEFAULT_STATUS_JSON_DIRECTORY=./json/status
 DEFAULT_USERS_EXPORTS_JSON_DIRECTORY=.users-exports
 
@@ -62,13 +64,7 @@ if [[ $? == 0 ]];
 then
   echo Exporting users from Auth0
 
-  NODE_OPTIONS=--no-warnings node ./scripts/users-exports.mjs \
-    --AUTH0_DOMAIN "$AUTH0_DOMAIN" \
-    --AUTH0_CONNECTION_ID "$AUTH0_CONNECTION_ID" \
-    --AUTH0_CLIENT_ID "$AUTH0_CLIENT_ID" \
-    --AUTH0_CLIENT_SECRET "$AUTH0_CLIENT_SECRET" \
-    --AUTH0_AUDIENCE "$AUTH0_AUDIENCE" \
-    --AUTH0_ACCESS_TOKEN_ENDPOINT "$AUTH0_ACCESS_TOKEN_ENDPOINT"
+  users_exports;
 
   echo 👋
   exit 0

@@ -1,53 +1,126 @@
 #!/bin/bash
 
-while [ $# -ge 1 ];
-do
-  case "$1" in
-    --DATE_CREATED)
-      export DATE_CREATED="$2"
-      shift
-      ;;
-    --DATE_CHANGED)
-      export DATE_CHANGED="$2"
-      shift
-      ;;
-    --USERS_JSON_FILE)
-      export USERS_JSON_FILE="$2"
-      shift
-      ;;
-    --AUTH0_JSON_FILE)
-      export AUTH0_JSON_FILE="$2"
-      shift
-      ;;
-    --STATUS_JSON_DIRECTORY)
-      export STATUS_JSON_DIRECTORY="$2"
-      shift
-      ;;
-    --DATE_CREATED=*)
-      export DATE_CREATED="${1#*=}"
-      ;;
-    --DATE_CHANGED=*)
-      export DATE_CHANGED="${1#*=}"
-      ;;
-    --USERS_JSON_FILE=*)
-      export USERS_JSON_FILE="${1#*=}"
-      ;;
-    --AUTH0_JSON_FILE=*)
-      export AUTH0_JSON_FILE="${1#*=}"
-      ;;
-    --STATUS_JSON_DIRECTORY=*)
-      export STATUS_JSON_DIRECTORY="${1#*=}"
-      ;;
-    *)
-  esac
-  shift
-done
-
 PLATFORM_TUNNEL_OPEN=.platform/tunnel-open.log
 PLATFORM_TUNNEL_CLOSE=.platform/tunnel-close.log
 PLATFORM_TUNNEL_LIST=.platform/tunnel-list.log
 
 MARIADB="mysql://([a-z0-9]*):([a-z0-9]*)@([a-zA-Z0-9\.\-\_]*):([0-9]*)/([a-zA-Z]*)"
+
+has_args () {
+  if [ $# -ge 1 ];
+  then
+    true
+  fi
+}
+
+get_args () {
+  while [ $# -ge 1 ];
+  do
+    case "$1" in
+      --DATE_CREATED)
+        export DATE_CREATED="$2"
+        shift
+        ;;
+      --DATE_CHANGED)
+        export DATE_CHANGED="$2"
+        shift
+        ;;
+      --USERS_JSON_FILE)
+        export USERS_JSON_FILE="$2"
+        shift
+        ;;
+      --AUTH0_JSON_FILE)
+        export AUTH0_JSON_FILE="$2"
+        shift
+        ;;
+      --STATUS_JSON_DIRECTORY)
+        export STATUS_JSON_DIRECTORY="$2"
+        shift
+        ;;
+      --DATE_CREATED=*)
+        export DATE_CREATED="${1#*=}"
+        ;;
+      --DATE_CHANGED=*)
+        export DATE_CHANGED="${1#*=}"
+        ;;
+      --USERS_JSON_FILE=*)
+        export USERS_JSON_FILE="${1#*=}"
+        ;;
+      --AUTH0_JSON_FILE=*)
+        export AUTH0_JSON_FILE="${1#*=}"
+        ;;
+      --STATUS_JSON_DIRECTORY=*)
+        export STATUS_JSON_DIRECTORY="${1#*=}"
+        ;;
+      *)
+    esac
+    shift
+  done
+}
+
+users () {
+  node ./scripts/users.mjs \
+    --MARIADB_USER "$MARIADB_USER" \
+    --MARIADB_PASSWORD "$MARIADB_PASSWORD" \
+    --MARIADB_HOST "$MARIADB_HOST" \
+    --MARIADB_PORT "$MARIADB_PORT" \
+    --MARIADB_DATABASE "$MARIADB_DATABASE" \
+    --DESTINATION "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}"
+}
+
+users_by_date_changed () {
+  node ./scripts/users-by-date-changed.mjs \
+    --MARIADB_USER "$MARIADB_USER" \
+    --MARIADB_PASSWORD "$MARIADB_PASSWORD" \
+    --MARIADB_HOST "$MARIADB_HOST" \
+    --MARIADB_PORT "$MARIADB_PORT" \
+    --MARIADB_DATABASE "$MARIADB_DATABASE" \
+    --DESTINATION "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}" \
+    --DATE_CHANGED "${DATE_CHANGED-$START}"
+}
+
+users_by_date_created () {
+  node ./scripts/users-by-date-created.mjs \
+    --MARIADB_USER "$MARIADB_USER" \
+    --MARIADB_PASSWORD "$MARIADB_PASSWORD" \
+    --MARIADB_HOST "$MARIADB_HOST" \
+    --MARIADB_PORT "$MARIADB_PORT" \
+    --MARIADB_DATABASE "$MARIADB_DATABASE" \
+    --DESTINATION "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}" \
+    --DATE_CREATED "${DATE_CREATED-$START}"
+}
+
+users_imports () {
+  NODE_OPTIONS=--no-warnings node ./scripts/users-imports.mjs \
+    --AUTH0_DOMAIN "$AUTH0_DOMAIN" \
+    --AUTH0_CONNECTION_ID "$AUTH0_CONNECTION_ID" \
+    --AUTH0_CLIENT_ID "$AUTH0_CLIENT_ID" \
+    --AUTH0_CLIENT_SECRET "$AUTH0_CLIENT_SECRET" \
+    --AUTH0_AUDIENCE "$AUTH0_AUDIENCE" \
+    --AUTH0_ACCESS_TOKEN_ENDPOINT "$AUTH0_ACCESS_TOKEN_ENDPOINT" \
+    --AUTH0_UPSERT "${AUTH0_UPSERT-$DEFAULT_AUTH0_UPSERT}" \
+    --ORIGIN "${AUTH0_JSON_FILE-$DEFAULT_AUTH0_JSON_FILE}" \
+    --USERS_IMPORTS_PATH "${USERS_IMPORTS_JSON_DIRECTORY-$DEFAULT_USERS_IMPORTS_JSON_DIRECTORY}" \
+    --DESTINATION "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
+}
+
+users_exports () {
+  NODE_OPTIONS=--no-warnings node ./scripts/users-exports.mjs \
+    --AUTH0_DOMAIN "$AUTH0_DOMAIN" \
+    --AUTH0_CONNECTION_ID "$AUTH0_CONNECTION_ID" \
+    --AUTH0_CLIENT_ID "$AUTH0_CLIENT_ID" \
+    --AUTH0_CLIENT_SECRET "$AUTH0_CLIENT_SECRET" \
+    --AUTH0_AUDIENCE "$AUTH0_AUDIENCE" \
+    --AUTH0_ACCESS_TOKEN_ENDPOINT "$AUTH0_ACCESS_TOKEN_ENDPOINT" \
+    --USERS_IMPORTS_PATH "${USERS_EXPORTS_JSON_DIRECTORY-$DEFAULT_USERS_EXPORTS_JSON_DIRECTORY}" \
+    --DESTINATION "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
+}
+
+transform_users () {
+  NODE_OPTIONS="--no-warnings --max-old-space-size=4096" node ./scripts/transform-users.mjs \
+    --ORIGIN "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}" \
+    --DESTINATION "${AUTH0_JSON_FILE-$DEFAULT_AUTH0_JSON_FILE}"
+}
 
 platform_tunnel_open () {
   rm "$PLATFORM_TUNNEL_OPEN" 2> /dev/null

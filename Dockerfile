@@ -11,3 +11,5 @@ COPY package.json package-lock.json ./
 RUN echo "update-notifier=false" > ./.npmrc
 RUN npm ci --quiet
 COPY . .
+RUN chmod +x ./entrypoint.sh
+ENTRYPOINT ./entrypoint.sh

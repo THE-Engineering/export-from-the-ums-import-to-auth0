@@ -6,6 +6,8 @@ set +a
 
 source ./utils.sh
 
+get_args "$@";
+
 DEFAULT_USERS_JSON_FILE=./json/users.json
 DEFAULT_AUTH0_JSON_FILE=./json/auth0.json
 

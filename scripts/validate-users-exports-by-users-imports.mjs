@@ -52,13 +52,13 @@ async function app () {
     const usersExports = await getUsersExports(ORIGIN)
     const usersImports = await getUsersImports(USERS_IMPORTS_PATH)
     await writeToFilePath(DESTINATION, usersExports.reduce(getReduce(toSet(usersImports)), []).sort(sortByUserId))
-
-    console.log('👍')
   } catch (e) {
     handleError(e)
 
     process.exit(1)
   }
+
+  console.log('👍')
 }
 
 export default app()
