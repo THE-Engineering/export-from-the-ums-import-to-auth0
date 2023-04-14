@@ -9,6 +9,15 @@ function transform ({ key, value }) {
     }
   }
 
+  if (key === 'DATE_CHANGED' || key === 'DATE_CREATED') {
+    if (typeof value === 'string') {
+      return {
+        key,
+        value: Number(value)
+      }
+    }
+  }
+
   return {
     key,
     value

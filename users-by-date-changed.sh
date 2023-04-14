@@ -8,6 +8,15 @@ source ./utils.sh
 
 trap platform_tunnel_close EXIT
 
+if [[ -z "$DATE_CHANGED" ]];
+then
+  echo -e 1>&2 "Required argument must be defined (2):";
+  echo -e 1>&2 " \033[0;31m•\033[0m \$DATE_CHANGED"
+
+  echo 💥
+  exit 2
+fi
+
 DEFAULT_USERS_JSON_FILE=./json/users.json
 
 mkdir .platform 2> /dev/null
@@ -70,13 +79,14 @@ if [[ $? == 0 ]];
 then
   echo Exporting users from THE UMS
 
-  node ./scripts/users.mjs \
+  node ./scripts/users-by-date-changed.mjs \
     --MARIADB_USER "$MARIADB_USER" \
     --MARIADB_PASSWORD "$MARIADB_PASSWORD" \
     --MARIADB_HOST "$MARIADB_HOST" \
     --MARIADB_PORT "$MARIADB_PORT" \
     --MARIADB_DATABASE "$MARIADB_DATABASE" \
-    --DESTINATION "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}"
+    --DESTINATION "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}" \
+    --DATE_CHANGED "${DATE_CHANGED}"
 
   echo 👋
   exit 0

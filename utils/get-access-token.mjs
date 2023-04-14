@@ -1,5 +1,5 @@
 import {
-  AUTH0_RESOURCE,
+  AUTH0_ACCESS_TOKEN_ENDPOINT,
   AUTH0_CLIENT_ID,
   AUTH0_CLIENT_SECRET,
   AUTH0_AUDIENCE
@@ -30,7 +30,7 @@ function isAuthorized ({ access_token: accessToken } = {}) {
 
 // https://auth0.com/docs/secure/tokens/access-tokens/get-management-api-access-tokens-for-production
 async function getAuthorizationFromResource () {
-  const response = await fetch(AUTH0_RESOURCE, {
+  const response = await fetch(AUTH0_ACCESS_TOKEN_ENDPOINT, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

@@ -35,4 +35,4 @@ In review
 - The _Client ID_ is the `AUTH0_CLIENT_ID`
 - The _Client Secret_ is the `AUTH0_CLIENT_SECRET`
 - The _Audience_ is the `AUTH0_AUDIENCE`
-- The _URL_ is the `AUTH0_RESOURCE`
+- The _URL_ is the `AUTH0_ACCESS_TOKEN_ENDPOINT`

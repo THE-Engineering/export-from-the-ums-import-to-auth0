@@ -41,7 +41,7 @@ then
     ! has_auth0_audience && \
     echo -e 1>&2 " \033[0;31m•\033[0m \$AUTH0_AUDIENCE"
     ! has_auth0_resource && \
-    echo -e 1>&2 " \033[0;31m•\033[0m \$AUTH0_RESOURCE"
+    echo -e 1>&2 " \033[0;31m•\033[0m \$AUTH0_ACCESS_TOKEN_ENDPOINT"
 
     echo 💥
     exit 3
@@ -68,7 +68,7 @@ then
     --AUTH0_CLIENT_ID "$AUTH0_CLIENT_ID" \
     --AUTH0_CLIENT_SECRET "$AUTH0_CLIENT_SECRET" \
     --AUTH0_AUDIENCE "$AUTH0_AUDIENCE" \
-    --AUTH0_RESOURCE "$AUTH0_RESOURCE"
+    --AUTH0_ACCESS_TOKEN_ENDPOINT "$AUTH0_ACCESS_TOKEN_ENDPOINT"
 
   echo 👋
   exit 0

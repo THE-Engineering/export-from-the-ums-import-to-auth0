@@ -21,6 +21,8 @@
     "lint": "cross-env NODE_ENV=production eslint . --ext .mjs --ext .cjs",
     "lint:fix": "npm run lint -- --fix",
     "users": "node ./scripts/users.mjs",
+    "users-by-date-changed": "node ./scripts/users-by-date-changed.mjs",
+    "users-by-date-created": "node ./scripts/users-by-date-created.mjs",
     "transform": "bash ./transform.sh",
     "transform-users": "node ./scripts/transform-users.mjs",
     "users-imports": "node ./scripts/users-imports.mjs",

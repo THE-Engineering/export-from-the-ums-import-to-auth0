@@ -1,5 +1,48 @@
 #!/bin/bash
 
+while [ $# -ge 1 ];
+do
+  case "$1" in
+    --DATE_CREATED)
+      export DATE_CREATED="$2"
+      shift
+      ;;
+    --DATE_CHANGED)
+      export DATE_CHANGED="$2"
+      shift
+      ;;
+    --USERS_JSON_FILE)
+      export USERS_JSON_FILE="$2"
+      shift
+      ;;
+    --AUTH0_JSON_FILE)
+      export AUTH0_JSON_FILE="$2"
+      shift
+      ;;
+    --STATUS_JSON_DIRECTORY)
+      export STATUS_JSON_DIRECTORY="$2"
+      shift
+      ;;
+    --DATE_CREATED=*)
+      export DATE_CREATED="${1#*=}"
+      ;;
+    --DATE_CHANGED=*)
+      export DATE_CHANGED="${1#*=}"
+      ;;
+    --USERS_JSON_FILE=*)
+      export USERS_JSON_FILE="${1#*=}"
+      ;;
+    --AUTH0_JSON_FILE=*)
+      export AUTH0_JSON_FILE="${1#*=}"
+      ;;
+    --STATUS_JSON_DIRECTORY=*)
+      export STATUS_JSON_DIRECTORY="${1#*=}"
+      ;;
+    *)
+  esac
+  shift
+done
+
 PLATFORM_TUNNEL_OPEN=.platform/tunnel-open.log
 PLATFORM_TUNNEL_CLOSE=.platform/tunnel-close.log
 PLATFORM_TUNNEL_LIST=.platform/tunnel-list.log
@@ -57,7 +100,7 @@ has_auth0_audience () {
 }
 
 has_auth0_resource () {
-  if [[ -z "$AUTH0_RESOURCE" ]];
+  if [[ -z "$AUTH0_ACCESS_TOKEN_ENDPOINT" ]];
   then
     false
   fi
