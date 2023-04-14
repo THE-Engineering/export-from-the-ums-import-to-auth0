@@ -17,6 +17,10 @@ get_args () {
   while [ $# -ge 1 ];
   do
     case "$1" in
+      --SINCE)
+        export SINCE="$2"
+        shift
+        ;;
       --DATE_CREATED)
         export DATE_CREATED="$2"
         shift
@@ -36,6 +40,9 @@ get_args () {
       --STATUS_JSON_DIRECTORY)
         export STATUS_JSON_DIRECTORY="$2"
         shift
+        ;;
+      --SINCE=*)
+        export SINCE="${1#*=}"
         ;;
       --DATE_CREATED=*)
         export DATE_CREATED="${1#*=}"
@@ -278,41 +285,84 @@ has_mariadb () {
 }
 
 archive_files () {
-  file_count=$(find "$1" -name "*.json" 2> /dev/null | wc -l | xargs)
+  local files_count
 
-  if [ "$file_count" -gt 0 ];
+  files_count=$(find "$1" -name "*.json" -maxdepth 1 2> /dev/null | wc -l | xargs)
+
+  if [ "$files_count" -gt 0 ];
   then
+    local current_date
+    local n
+    local archive_directory
+    local d
+
     current_date=$(date '+%Y-%m-%d')
     n=1
     archive_directory="$current_date-$n" # archive directory name
+    d="$1/$archive_directory"
 
-    while [ -d "$1/$archive_directory" ] # while archive directory name exists
+    while [ -d "$d" ] # while archive directory name exists
     do
       ((n++)) # bash compliant versus n=$((n + 1)) posix compliant increment
       archive_directory="$current_date-$n" # archive directory name
+      d="$1/$archive_directory"
     done
 
-    mkdir -p "$1/$archive_directory"
-    mv "$1"/*.json "$1/$archive_directory" 2> /dev/null
+    mkdir -p "$d"
+    mv "$1"/*.json "$d" 2> /dev/null
   fi
 }
 
 archive_file () {
   if [ -f "$1" ];
   then
+    local D
+    local current_date
+    local n
+    local archive_directory
+    local d
+
     D=$(dirname "$1")
+    current_date=$(date '+%Y-%m-%d')
+    n=1
+    archive_directory="$current_date-$n" # archive directory name
+    d="$D/$archive_directory"
+
+    while [ -d "$d" ] # while archive directory name exists
+    do
+      ((n++)) # bash compliant versus n=$((n + 1)) posix compliant increment
+      archive_directory="$current_date-$n" # archive directory name
+      d="$D/$archive_directory"
+    done
+
+    mkdir -p "$d"
+    mv "$1" "$d" 2> /dev/null
+  fi
+}
+
+archive () {
+  if [ -f "./json/users.users.json" ] || [ -f "./json/users-by-date-changed.users.json" ] || [ -f "./json/users-by-date-created.users.json" ];
+  then
+    local current_date
+    local n
+    local archive_directory
+    local d
 
     current_date=$(date '+%Y-%m-%d')
     n=1
     archive_directory="$current_date-$n" # archive directory name
+    d="./json/$archive_directory"
 
-    while [ -d "$D/$archive_directory" ] # while archive directory name exists
+    while [ -d "$d" ] # while archive directory name exists
     do
       ((n++)) # bash compliant versus n=$((n + 1)) posix compliant increment
       archive_directory="$current_date-$n" # archive directory name
+      d="./json/$archive_directory"
     done
 
-    mkdir -p "$D/$archive_directory"
-    mv "$1" "$D/$archive_directory" 2> /dev/null
+    mkdir -p "$d"
+    mv "./json/users.users.json" "$d" 2> /dev/null
+    mv "./json/users-by-date-changed.users.json" "$d" 2> /dev/null
+    mv "./json/users-by-date-created.users.json" "$d" 2> /dev/null
   fi
 }

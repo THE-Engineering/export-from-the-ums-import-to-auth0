@@ -4,7 +4,6 @@ services:
     image: export-from-the-ums-import-to-auth0
     container_name: export-from-the-ums-import-to-auth0
     working_dir: /app
-    restart: unless-stopped
     env_file: .env
     volumes:
       - './:/app'

@@ -10,7 +10,7 @@ function transform ({ key, value }) {
   }
 
   if (key === 'DATE_CHANGED' || key === 'DATE_CREATED') {
-    if (typeof value === 'string') {
+    if (typeof value === 'string' && value.length) {
       return {
         key,
         value: Number(value)

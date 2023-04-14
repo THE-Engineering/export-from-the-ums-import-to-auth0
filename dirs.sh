@@ -23,9 +23,6 @@ dirs () {
   done
 }
 
-echo "I was given $# argument(s):"
-printf "%s\n" "$@"
-
 for flag in "$@";
 do
   shift

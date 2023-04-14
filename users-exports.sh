@@ -17,7 +17,7 @@ if ! has_auth0;
 then
   if ! has_auth0_programmatic_token;
   then
-    echo -e 1>&2 "Required environment variables must be defined (2):";
+    echo -e 1>&2 "Required environment variables must be defined:";
     ! has_auth0_domain && \
     echo -e 1>&2 " \033[0;31m•\033[0m \$AUTH0_DOMAIN"
     ! has_auth0_connection_id && \
@@ -31,7 +31,7 @@ then
 
   if ! has_auth0_manual_token;
   then
-    echo -e 1>&2 "Required environment variables must be defined (3):";
+    echo -e 1>&2 "Required environment variables must be defined:";
     ! has_auth0_domain && \
     echo -e 1>&2 " \033[0;31m•\033[0m \$AUTH0_DOMAIN"
     ! has_auth0_connection_id && \
@@ -56,8 +56,8 @@ mkdir \
 
 echo Archiving files
 
-archive_files "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
-archive_files "${USERS_EXPORTS_JSON_DIRECTORY-$DEFAULT_USERS_EXPORTS_JSON_DIRECTORY}"
+archive_files "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}";
+archive_files "${USERS_EXPORTS_JSON_DIRECTORY-$DEFAULT_USERS_EXPORTS_JSON_DIRECTORY}";
 
 # shellcheck disable=SC2181
 if [[ $? == 0 ]];

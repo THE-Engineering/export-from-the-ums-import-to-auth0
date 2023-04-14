@@ -47,7 +47,7 @@ fi
 
 if ! has_mariadb;
 then
-  echo -e 1>&2 "Required environment variables must be defined (2):";
+  echo -e 1>&2 "Required environment variables must be defined:";
   ! has_mariadb_user && \
   echo -e 1>&2 " \033[0;31m•\033[0m \$MARIADB_USER"
   ! has_mariadb_password && \
@@ -65,20 +65,18 @@ fi
 
 echo Archiving file
 
-archive_file "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}"
+archive;
+
+archive_file "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}";
 
 # shellcheck disable=SC2181
 if [[ $? == 0 ]];
 then
   echo Exporting users from THE UMS
 
-  node ./scripts/users.mjs \
-    --MARIADB_USER "$MARIADB_USER" \
-    --MARIADB_PASSWORD "$MARIADB_PASSWORD" \
-    --MARIADB_HOST "$MARIADB_HOST" \
-    --MARIADB_PORT "$MARIADB_PORT" \
-    --MARIADB_DATABASE "$MARIADB_DATABASE" \
-    --DESTINATION "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}"
+  users;
+
+  platform_tunnel_close;
 
   echo 👋
   exit 0

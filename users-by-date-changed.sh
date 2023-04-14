@@ -12,7 +12,7 @@ trap platform_tunnel_close EXIT
 
 if [[ -z "$DATE_CHANGED" ]];
 then
-  echo -e 1>&2 "Required argument must be defined (2):";
+  echo -e 1>&2 "Required argument must be defined:";
   echo -e 1>&2 " \033[0;31m•\033[0m \$DATE_CHANGED"
 
   echo 💥
@@ -56,7 +56,7 @@ fi
 
 if ! has_mariadb;
 then
-  echo -e 1>&2 "Required environment variables must be defined (2):";
+  echo -e 1>&2 "Required environment variables must be defined:";
   ! has_mariadb_user && \
   echo -e 1>&2 " \033[0;31m•\033[0m \$MARIADB_USER"
   ! has_mariadb_password && \
@@ -72,14 +72,16 @@ then
   exit 2
 fi
 
-echo Archiving file
+echo Archiving files
 
-archive_file "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}"
+archive;
+
+archive_file "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}";
 
 # shellcheck disable=SC2181
 if [[ $? == 0 ]];
 then
-  echo Exporting users from THE UMS
+  echo Exporting users from THE UMS by date changed
 
   users_by_date_changed;
 

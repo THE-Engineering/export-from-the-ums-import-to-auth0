@@ -13,7 +13,7 @@ DEFAULT_AUTH0_JSON_FILE=./json/auth0.json
 
 if [[ -f "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}" ]];
 then
-  archive_file "${AUTH0_JSON_FILE-$DEFAULT_AUTH0_JSON_FILE}"
+  archive_file "${AUTH0_JSON_FILE-$DEFAULT_AUTH0_JSON_FILE}";
 
   echo Transforming users
 
