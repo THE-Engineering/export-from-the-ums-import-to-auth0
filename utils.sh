@@ -341,7 +341,10 @@ archive_file () {
 }
 
 archive () {
-  if [ -f "./json/users.users.json" ] || [ -f "./json/users-by-date-changed.users.json" ] || [ -f "./json/users-by-date-created.users.json" ];
+  if
+    [ -f "./json/users.users.json" ] ||
+    [ -f "./json/users-by-date-changed.users.json" ] ||
+    [ -f "./json/users-by-date-created.users.json" ];
   then
     local current_date
     local n

@@ -18,9 +18,9 @@
   },
   "scripts": {
     "start": "bash ./start.sh",
-    "start:by-date": "bash ./by-date.sh",
-    "start:by-date-changed": "bash ./by-date-changed.sh",
-    "start:by-date-created": "bash ./by-date-created.sh",
+    "start:by-date": "bash ./start-by-date.sh",
+    "start:by-date-changed": "bash ./start-by-date-changed.sh",
+    "start:by-date-created": "bash ./start-by-date-created.sh",
     "lint": "cross-env NODE_ENV=production eslint . --ext .mjs --ext .cjs",
     "lint:fix": "npm run lint -- --fix",
     "users": "node ./scripts/users.mjs",
