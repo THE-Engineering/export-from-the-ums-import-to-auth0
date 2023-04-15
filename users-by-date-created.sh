@@ -12,7 +12,7 @@ trap platform_tunnel_close EXIT
 
 if [[ -z "$DATE_CREATED" ]];
 then
-  echo -e "Required argument must be defined:";
+  echo Required argument must be defined:
   echo -e " \033[0;31m•\033[0m \$DATE_CREATED"
 
   echo 💥
