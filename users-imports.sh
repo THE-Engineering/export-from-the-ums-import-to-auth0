@@ -19,13 +19,13 @@ if ! has_auth0;
 then
   if ! has_auth0_programmatic_token;
   then
-    echo -e 1>&2 "Required environment variables must be defined:";
+    echo Required environment variables must be defined:
     ! has_auth0_domain && \
-    echo -e 1>&2 " \033[0;31m•\033[0m \$AUTH0_DOMAIN"
+    echo -e " \033[0;31m•\033[0m \$AUTH0_DOMAIN"
     ! has_auth0_connection_id && \
-    echo -e 1>&2 " \033[0;31m•\033[0m \$AUTH0_CONNECTION_ID"
+    echo -e " \033[0;31m•\033[0m \$AUTH0_CONNECTION_ID"
     ! has_auth0_access_token && \
-    echo -e 1>&2 " \033[0;31m•\033[0m \$AUTH0_ACCESS_TOKEN"
+    echo -e " \033[0;31m•\033[0m \$AUTH0_ACCESS_TOKEN"
 
     echo 💥
     exit 2
@@ -33,19 +33,19 @@ then
 
   if ! has_auth0_manual_token;
   then
-    echo -e 1>&2 "Required environment variables must be defined:";
+    echo Required environment variables must be defined:
     ! has_auth0_domain && \
-    echo -e 1>&2 " \033[0;31m•\033[0m \$AUTH0_DOMAIN"
+    echo -e " \033[0;31m•\033[0m \$AUTH0_DOMAIN"
     ! has_auth0_connection_id && \
-    echo -e 1>&2 " \033[0;31m•\033[0m \$AUTH0_CONNECTION_ID"
+    echo -e " \033[0;31m•\033[0m \$AUTH0_CONNECTION_ID"
     ! has_auth0_client_id && \
-    echo -e 1>&2 " \033[0;31m•\033[0m \$AUTH0_CLIENT_ID"
+    echo -e " \033[0;31m•\033[0m \$AUTH0_CLIENT_ID"
     ! has_auth0_client_secret && \
-    echo -e 1>&2 " \033[0;31m•\033[0m \$AUTH0_CLIENT_SECRET"
+    echo -e " \033[0;31m•\033[0m \$AUTH0_CLIENT_SECRET"
     ! has_auth0_audience && \
-    echo -e 1>&2 " \033[0;31m•\033[0m \$AUTH0_AUDIENCE"
+    echo -e " \033[0;31m•\033[0m \$AUTH0_AUDIENCE"
     ! has_auth0_resource && \
-    echo -e 1>&2 " \033[0;31m•\033[0m \$AUTH0_ACCESS_TOKEN_ENDPOINT"
+    echo -e " \033[0;31m•\033[0m \$AUTH0_ACCESS_TOKEN_ENDPOINT"
 
     echo 💥
     exit 3

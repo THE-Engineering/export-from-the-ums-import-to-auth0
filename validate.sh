@@ -72,15 +72,7 @@ then
   then
     echo Exporting users from Auth0
 
-    NODE_OPTIONS=--no-warnings node ./scripts/users-exports.mjs \
-      --AUTH0_DOMAIN "$AUTH0_DOMAIN" \
-      --AUTH0_CONNECTION_ID "$AUTH0_CONNECTION_ID" \
-      --AUTH0_CLIENT_ID "$AUTH0_CLIENT_ID" \
-      --AUTH0_CLIENT_SECRET "$AUTH0_CLIENT_SECRET" \
-      --AUTH0_AUDIENCE "$AUTH0_AUDIENCE" \
-      --AUTH0_ACCESS_TOKEN_ENDPOINT "$AUTH0_ACCESS_TOKEN_ENDPOINT" \
-      --USERS_EXPORTS_PATH "${USERS_EXPORTS_JSON_FILE-$DEFAULT_USERS_EXPORTS_JSON_FILE}" \
-      --DESTINATION "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
+    users_exports;
 
     # shellcheck disable=SC2181
     if [[ $? == 0 ]];
@@ -88,7 +80,7 @@ then
       if [[ ! -f "${USERS_EXPORTS_JSON_FILE-$DEFAULT_USERS_EXPORTS_JSON_FILE}" ]];
       then
         # shellcheck disable=SC2016
-        echo 'Run `./users-exports.sh`'
+        echo Run "./users-exports.sh"
         exit 1
       fi
     fi
@@ -96,7 +88,7 @@ then
 
   if $USERS;
   then
-    echo -e 'Validating users \033[0;90m1\033[0m' # 1
+    echo -e "Validating users \033[0;90m1\033[0m" # 1
 
     # 1. Structure
     node ./scripts/validate-users.mjs \
@@ -106,7 +98,7 @@ then
 
   if $USERS_BY_USERS_IMPORTS;
   then
-    echo -e 'Validating users by users imports \033[0;90m2\033[0m' # 2
+    echo -e "Validating users by users imports \033[0;90m2\033[0m" # 2
 
     # 2. Users not in users imports (not dispatched to Auth0)
     node ./scripts/validate-users-by-users-imports.mjs \
@@ -117,7 +109,7 @@ then
 
   if $USERS_BY_USERS_EXPORTS;
   then
-    echo -e 'Validating users by users exports \033[0;90m3\033[0m' # 3
+    echo -e "Validating users by users exports \033[0;90m3\033[0m" # 3
 
     # 3. Users not in users exports (not retrieved from Auth0. Exceptions)
     node ./scripts/validate-users-by-users-exports.mjs \
@@ -128,7 +120,7 @@ then
 
   if $USERS_IMPORTS_BY_USERS_EXPORTS;
   then
-    echo -e 'Validating users imports by users exports \033[0;90m4\033[0m' # 4
+    echo -e "Validating users imports by users exports \033[0;90m4\033[0m" # 4
 
     # 4. Users in users imports but not in users exports (dispatched to Auth0 but not retrieved from Auth0)
     node ./scripts/validate-users-imports-by-users-exports.mjs \
@@ -139,7 +131,7 @@ then
 
   if $USERS_EXPORTS_BY_USERS_IMPORTS;
   then
-    echo -e 'Validating users exports by users imports \033[0;90m5\033[0m' # 5
+    echo -e "Validating users exports by users imports \033[0;90m5\033[0m" # 5
 
     # 5. Users in users exports but not in users imports (retrieved from Auth0 but not Keycloak users)
     node ./scripts/validate-users-exports-by-users-imports.mjs \
@@ -150,7 +142,7 @@ then
 
   if $USERS_IMPORTS_BY_USERS;
   then
-    echo -e 'Validating users imports by users \033[0;90m6\033[0m' # 6
+    echo -e "Validating users imports by users \033[0;90m6\033[0m" # 6
 
     # 6. Users in users imports but not in users (This should be impossible)
     node ./scripts/validate-users-imports-by-users.mjs \
@@ -161,7 +153,7 @@ then
 
   if $USERS_EXPORTS_BY_USERS;
   then
-    echo -e 'Validating users exports by users \033[0;90m7\033[0m' # 7
+    echo -e "Validating users exports by users \033[0;90m7\033[0m" # 7
 
     # 7. Users in users exports but not in users (retrieved from Auth0 but not UMS users)
     node ./scripts/validate-users-exports-by-users.mjs \

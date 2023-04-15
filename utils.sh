@@ -129,9 +129,21 @@ transform_users () {
     --DESTINATION "${AUTH0_JSON_FILE-$DEFAULT_AUTH0_JSON_FILE}"
 }
 
+encrypt () {
+  node ./utils/crypto/shell/encrypt.mjs < "$1"
+}
+
+decrypt () {
+  node ./utils/crypto/shell/decrypt.mjs < "$1"
+}
+
 platform_tunnel_open () {
-  rm "$PLATFORM_TUNNEL_OPEN" 2> /dev/null
-  platform tunnel:open --project "$PLATFORM_PROJECT" --environment "$PLATFORM_BRANCH" --no-interaction &> "$PLATFORM_TUNNEL_OPEN"
+  rm -f "$PLATFORM_TUNNEL_OPEN" 2> /dev/null
+  local file
+  file=$(mktemp -u)
+  platform tunnel:open --project "$PLATFORM_PROJECT" --environment "$PLATFORM_BRANCH" --no-interaction &> "$file" # output is on 2>
+  encrypt "$file" > "$PLATFORM_TUNNEL_OPEN"
+  rm -f "$file"
 }
 
 platform_tunnel_close () {
@@ -230,7 +242,7 @@ has_mariadb_user () {
 }
 
 get_mariadb_user () {
-  [[ "$(<$PLATFORM_TUNNEL_OPEN)" =~ $MARIADB ]] && echo "${BASH_REMATCH[1]}"
+  [[ "$(decrypt "$PLATFORM_TUNNEL_OPEN")" =~ $MARIADB ]] && echo "${BASH_REMATCH[1]}"
 }
 
 has_mariadb_password () {
@@ -241,7 +253,7 @@ has_mariadb_password () {
 }
 
 get_mariadb_password () {
-  [[ "$(<$PLATFORM_TUNNEL_OPEN)" =~ $MARIADB ]] && echo "${BASH_REMATCH[2]}"
+  [[ "$(decrypt "$PLATFORM_TUNNEL_OPEN")" =~ $MARIADB ]] && echo "${BASH_REMATCH[2]}"
 }
 
 has_mariadb_host () {
@@ -252,7 +264,7 @@ has_mariadb_host () {
 }
 
 get_mariadb_host () {
-  [[ "$(<$PLATFORM_TUNNEL_OPEN)" =~ $MARIADB ]] && echo "${BASH_REMATCH[3]}"
+  [[ "$(decrypt "$PLATFORM_TUNNEL_OPEN")" =~ $MARIADB ]] && echo "${BASH_REMATCH[3]}"
 }
 
 has_mariadb_port () {
@@ -263,7 +275,7 @@ has_mariadb_port () {
 }
 
 get_mariadb_port () {
-  [[ "$(<$PLATFORM_TUNNEL_OPEN)" =~ $MARIADB ]] && echo "${BASH_REMATCH[4]}"
+  [[ "$(decrypt "$PLATFORM_TUNNEL_OPEN")" =~ $MARIADB ]] && echo "${BASH_REMATCH[4]}"
 }
 
 has_mariadb_database () {
@@ -274,7 +286,7 @@ has_mariadb_database () {
 }
 
 get_mariadb_database () {
-  [[ "$(<$PLATFORM_TUNNEL_OPEN)" =~ $MARIADB ]] && echo "${BASH_REMATCH[5]}"
+  [[ "$(decrypt "$PLATFORM_TUNNEL_OPEN")" =~ $MARIADB ]] && echo "${BASH_REMATCH[5]}"
 }
 
 has_mariadb () {

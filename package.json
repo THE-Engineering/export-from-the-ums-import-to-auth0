@@ -67,6 +67,7 @@
     "#config": "./config/index.mjs",
     "#config/*": "./config/*.mjs",
     "#utils/*": "./utils/*.mjs",
+    "#utils/crypto": "./utils/crypto/index.mjs",
     "#application/*": "./application/*.mjs"
   }
 }
