@@ -47,17 +47,17 @@ fi
 
 if ! has_mariadb;
 then
-  echo -e 1>&2 "Required environment variables must be defined:";
+  echo Required environment variables must be defined:
   ! has_mariadb_user && \
-  echo -e 1>&2 " \033[0;31m•\033[0m \$MARIADB_USER"
+  echo -e " \033[0;31m•\033[0m \$MARIADB_USER"
   ! has_mariadb_password && \
-  echo -e 1>&2 " \033[0;31m•\033[0m \$MARIADB_PASSWORD"
+  echo -e " \033[0;31m•\033[0m \$MARIADB_PASSWORD"
   ! has_mariadb_host && \
-  echo -e 1>&2 " \033[0;31m•\033[0m \$MARIADB_HOST"
+  echo -e " \033[0;31m•\033[0m \$MARIADB_HOST"
   ! has_mariadb_port && \
-  echo -e 1>&2 " \033[0;31m•\033[0m \$MARIADB_PORT"
+  echo -e " \033[0;31m•\033[0m \$MARIADB_PORT"
   ! has_mariadb_database && \
-  echo -e 1>&2 " \033[0;31m•\033[0m \$MARIADB_DATABASE"
+  echo -e " \033[0;31m•\033[0m \$MARIADB_DATABASE"
 
   echo 💥
   exit 2

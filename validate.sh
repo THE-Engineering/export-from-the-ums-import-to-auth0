@@ -72,15 +72,7 @@ then
   then
     echo Exporting users from Auth0
 
-    NODE_OPTIONS=--no-warnings node ./scripts/users-exports.mjs \
-      --AUTH0_DOMAIN "$AUTH0_DOMAIN" \
-      --AUTH0_CONNECTION_ID "$AUTH0_CONNECTION_ID" \
-      --AUTH0_CLIENT_ID "$AUTH0_CLIENT_ID" \
-      --AUTH0_CLIENT_SECRET "$AUTH0_CLIENT_SECRET" \
-      --AUTH0_AUDIENCE "$AUTH0_AUDIENCE" \
-      --AUTH0_ACCESS_TOKEN_ENDPOINT "$AUTH0_ACCESS_TOKEN_ENDPOINT" \
-      --USERS_EXPORTS_PATH "${USERS_EXPORTS_JSON_FILE-$DEFAULT_USERS_EXPORTS_JSON_FILE}" \
-      --DESTINATION "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
+    users_exports;
 
     # shellcheck disable=SC2181
     if [[ $? == 0 ]];
