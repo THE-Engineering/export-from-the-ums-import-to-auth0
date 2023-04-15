@@ -16,7 +16,7 @@ let collector = Buffer.from('')
 
 openStdin()
   .on('data', (data) => {
-    collector = Buffer.concat([collector, Buffer.from(data)])
+    collector = Buffer.concat([collector, data])
   })
   .on('end', () => {
     stdout.write(decrypt(collector, CRYPTO_KEY))

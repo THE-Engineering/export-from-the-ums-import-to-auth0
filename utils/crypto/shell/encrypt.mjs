@@ -3,7 +3,6 @@
 import {
   CRYPTO_KEY
 } from '#config/crypto'
-
 import {
   encrypt
 } from '#utils/crypto'
