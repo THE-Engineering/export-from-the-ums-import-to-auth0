@@ -8,6 +8,14 @@ It can be built for Docker
 
 ## Set-up
 
+### Crypto
+
+`CRYPTO_KEY` is a secret which is used to encrypt and decrypt data
+
+You should provide `CRYPTO_KEY` as an _environment variable_ (ensuring it is not read from or written to disk, logged, or printed in the terminal)
+
+All data _managed by this application_ is encrypted and it can only be decrypted with the same secret
+
 ### AWS
 
 You will need credentials for MariaDB in AWS which you can _get from DevOps_
@@ -34,6 +42,10 @@ These documents assume that a developer is preparing their _development environm
 - [Validation](docs/validation.md)
 
 ## Starting with `npm start`
+
+Regardless of the environment _all data managed by this application_ is encrypted and must be decrypted for use
+
+A developer can populate their `.env` file with the appropriate environment variable [documented in **Cypto**](#crypto)
 
 ### In Development
 
@@ -82,6 +94,8 @@ npm start -- \
 ```
 
 You can _combine_ environment variables with command line arguments (in which case the latter take precedence over the former)
+
+You can provide `CRYPTO_KEY` as _either_ an environment variable _or_ a command line argument but you should be mindful of _logging and echoing_
 
 ## Docker
 

@@ -123,6 +123,14 @@ transform_users () {
     --DESTINATION "${AUTH0_JSON_FILE-$DEFAULT_AUTH0_JSON_FILE}"
 }
 
+encrypt () {
+  node ./utils/crypto/shell/encrypt.mjs < "$1"
+}
+
+decrypt () {
+  node ./utils/crypto/shell/decrypt.mjs < "$1"
+}
+
 has_auth0_domain () {
   if [[ -z "$AUTH0_DOMAIN" ]];
   then
