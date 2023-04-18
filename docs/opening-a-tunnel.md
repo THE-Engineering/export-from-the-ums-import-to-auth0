@@ -1,6 +1,6 @@
 ## 1 - Open a tunnel
 
-You will need the _shared private key_ for the AWS bastion _from DevOps_
+You will need the _shared private key_ for the bastion in AWS _from DevOps_
 
 - Save it to a `pem` file `~/.ssh/bastion.pem`
 - Ensure that it is readable only by your user
@@ -9,56 +9,60 @@ You will need the _shared private key_ for the AWS bastion _from DevOps_
 chmod 0600 ~/.ssh/bastion.pem
 ```
 
-You need values for these placeholders
+You will need
 
-- `LOCAL PORT`
-- `REMOTE HOST`
-- `REMOTE PORT`
-- `BASTION USER`
-- `BASTION HOST`
+- The _Local Port_
+- The _Remote Host_
+- The _Remote Port_
+- The _Bastion User_
+- The _Bastion Host_
 
-The `REMOTE HOST` and `REMOTE PORT` values are for the MariaDB instance _in AWS_
+The _Remote Host_ and _Remote Port_ values are for the MariaDB instance _in AWS_
 
-The `BASTION USER` and `BASTION HOST` are for an environment in _AWS_ which serves as a _proxy_ or _jump point_ to the MariaDB instance. (You create a secure connection from your local device to the remote bastion in AWS which is securely connected to MariaDB)
+The _Bastion User_ and _Bastion Host_ are for an environment in _AWS_ which serves as a _proxy_ or _jump point_ to the MariaDB instance. (You create a secure connection from your local device to the remote bastion in AWS which is securely connected to MariaDB)
 
-### `LOCAL PORT`
+### _Local Port_
 
-You can use any available port on your local device for the `LOCAL PORT`
+You can use any available port in your development environment for the _Local Port_
 
-### `REMOTE HOST`
+### _Remote Host_
 
-The MariaDB host will _typically_ end with `rds.amazonaws.com` but _get from DevOps_
+The _Remote Host_ is _MariaDB Host_ in AWS and will _typically_ end with `rds.amazonaws.com` but _get the value from DevOps_
 
-### `REMOTE PORT`
+### _Remote Port_
 
-The MariaDB port is _typically_ `3306` but _confirm with DevOps_
+The _Remote Port_ is the _MariaDB Port_ in AWS and is _typically_ `3306` but _get the value from DevOps_
 
-### `BASTION USER` and `BASTION HOST`
+### _Bastion User_ and _Bastion Host_
 
-_Get both from DevOps_
+_Get both values from DevOps_
 
 ### Open a secure tunnel with `ssh`
 
-Replace the placeholders (including the `"<` and `>"` parts) with the values, then at the command line execute:
-
 ```bash
-ssh -i "~/.ssh/bastion.pem" -L "<LOCAL PORT>":"<REMOTE HOST>":"<REMOTE PORT>" "<BASTION USER>"@"<BASTION HOST>"
+LOCAL_PORT="<LOCAL PORT>"
+REMOTE_HOST="<REMOTE HOST>"
+REMOTE_PORT="<REMOTE PORT>"
+BASTION_USER="<BASTION USER>"
+BASTION_HOST="<BASTION HOST>"
+
+ssh -i "~/.ssh/bastion.pem" -L $LOCAL_PORT:$REMOTE_HOST:$REMOTE_PORT $BASTION_USER@$BASTION_HOST
 ```
 
 # 2 - MariaDB connection configuration
 
-You need values for these placeholders
+You will need
 
-- `MARIADB USER`
-- `MARIADB PASSWORD`
-- `MARIADB HOST`
-- `MARIADB PORT`
-- `MARIADB DATABASE`
+- The _MariaDB User_
+- The _MariaDB Password_
+- The _MariaDB Host_
+- The _MariaDB Port_
+- The _MariaDB Database_
 
-Get all of these values _from DevOps_ except `MARIADB HOST` and `MARIADB PORT`
+Get all of these values _from DevOps_ except _MariaDB Host_ and _MariaDB Port_
 
-- `MARIADB HOST` is `localhost`
-- `MARIADB PORT` is `LOCAL PORT` from [the previous step](#1---open-a-tunnel)
+- _MariaDB Host_ is `localhost`
+- _MariaDB Port_ is the _Local Port_ from [the previous step](#1---open-a-tunnel)
 
 Put theses keys and values into your `.env` file
 

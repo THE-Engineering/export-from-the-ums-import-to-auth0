@@ -1,6 +1,10 @@
 # MariaDB
 
-To connect to the UMS MariaDB instance you must [open a secure tunnel using Platform.sh](./logging-in-to-platformsh-and-opening-a-tunnel.md) to the appropriate environment
+You will need credentials for MariaDB in AWS which you can _get from DevOps_
+
+In **Development** you must [open a secure tunnel to MariaDB using the bastion in AWS](opening-a-tunnel.md)
+
+A secure tunnel is unecessary in **Production**
 
 ## MariaDB connection configuration
 

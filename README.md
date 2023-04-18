@@ -1,6 +1,6 @@
 # export-from-the-ums-import-to-auth0
 
-This application exports users from THE UMS in Platorm.sh and imports them to Auth0
+This application exports users from THE UMS and imports them to Auth0
 
 It is organised into _scripts_ which perform a particular task, or a series of tasks
 
@@ -12,7 +12,7 @@ It can be built for Docker
 
 You will need credentials for MariaDB in AWS which you can _get from DevOps_
 
-In **Development** you must [open a secure tunnel to MariaDB using the bastion](docs/opening-a-tunnel.md)
+In **Development** you must [open a secure tunnel to MariaDB using the bastion in AWS](docs/opening-a-tunnel.md)
 
 A secure tunnel is unecessary in **Production**
 
@@ -28,18 +28,18 @@ You should create _either_ a manual or a programmatic acccess token for [Auth0](
 These documents assume that a developer is preparing their _development environment_ to perform tasks manually but much of the same configuration is required for _production_
 
 - [Exporting users from THE UMS](docs/exporting-users-from-the-ums.md)
-- [Transforming users to Auth0 JSON](docs/transforming-users-to-auth0-json.md)
+- [Transforming users to Auth0 JSON](docs/transforming-users-from-the-ums-json-to-auth0-json.md)
 - [Importing users to Auth0](docs/importing-users-to-auth0.md)
 - [Exporting users from Auth0](docs/exporting-users-from-auth0.md)
 - [Validation](docs/validation.md)
 
 ## Starting with `npm start`
 
-### Development
+### In Development
 
 [Exporting users](docs/exporting-users-from-the-ums.md) in your develoment environment requires [a secure tunnel to MariaDB in AWS](docs/opening-a-tunnel.md)
 
-### Development and Production
+### In Development and Production
 
 A `.env.default` file in the project root describes the _required_ environment variables from which you can create a `.env` file
 
@@ -77,11 +77,11 @@ npm start -- \
   --USERS_EXPORTS_BY_USERS "<USERS EXPORTS BY USERS>"
 ```
 
-You can _combine_ environment variables with command line arguments, in which case the latter take precedence over the former
+You can _combine_ environment variables with command line arguments (in which case the latter take precedence over the former)
 
 ## Docker
 
-Docker must provide the container with _at minimum_ 4GB RAM.
+Docker must provide the container with _at minimum_ 4GB RAM
 
 ### Building the Docker image
 
