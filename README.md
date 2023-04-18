@@ -37,7 +37,7 @@ These documents assume that a developer is preparing their _development environm
 
 ### In Development
 
-[Exporting users](docs/exporting-users-from-the-ums.md) in your _develoment environment_ requires [a secure tunnel to MariaDB in AWS](docs/opening-a-tunnel.md)
+[Exporting users](docs/exporting-users-from-the-ums.md) in your _development environment_ requires [a secure tunnel to MariaDB in AWS](docs/opening-a-tunnel.md)
 
 ### In Development and Production
 
