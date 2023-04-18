@@ -1,0 +1,15 @@
+#!/bin/bash -e
+
+set -a
+source .env
+set +a
+
+node ./scripts/remove-by-users-imports.mjs \
+  --AUTH0_DOMAIN "$AUTH0_DOMAIN"  \
+  --AUTH0_CONNECTION_ID "$AUTH0_CONNECTION_ID"  \
+  --AUTH0_CLIENT_ID "$AUTH0_CLIENT_ID"  \
+  --AUTH0_CLIENT_SECRET "$AUTH0_CLIENT_SECRET"  \
+  --AUTH0_AUDIENCE "$AUTH0_AUDIENCE"  \
+  --AUTH0_ACCESS_TOKEN_ENDPOINT "$AUTH0_ACCESS_TOKEN_ENDPOINT"
+
+exit 0
