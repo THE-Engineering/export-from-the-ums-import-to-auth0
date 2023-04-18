@@ -14,7 +14,7 @@ It can be built for Docker
 
 You should provide `CRYPTO_KEY` as an _environment variable_ (ensuring it is not read from or written to disk, logged, or printed in the terminal)
 
-All data _managed by this application_ is encrypted and it can only be decrypted with the same shared secret
+_All data managed by this application_ is encrypted and it can only be decrypted with the same shared secret
 
 ### AWS
 
@@ -45,7 +45,7 @@ These documents assume that a developer is preparing their _development environm
 
 Regardless of the environment _all data managed by this application_ is encrypted and must be decrypted for use
 
-A developer can populate their `.env` file with the appropriate environment variable [documented in **Cypto**](#crypto)
+You can populate your `.env` file with the `CRYPTO_KEY` environment variable [documented in **Cypto**](#crypto)
 
 ### In Development
 
