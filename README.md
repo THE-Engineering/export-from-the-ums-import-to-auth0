@@ -8,13 +8,13 @@ It can be built for Docker
 
 ## Set-up
 
-### Crypto
+### Shared secret
 
-`CRYPTO_KEY` is a secret which is used to encrypt and decrypt data
+`CRYPTO_KEY` is a shared secret which is used to encrypt and decrypt data
 
 You should provide `CRYPTO_KEY` as an _environment variable_ (ensuring it is not read from or written to disk, logged, or printed in the terminal)
 
-All data _managed by this application_ is encrypted and it can only be decrypted with the same secret
+All data _managed by this application_ is encrypted and it can only be decrypted with the same shared secret
 
 ### AWS
 
