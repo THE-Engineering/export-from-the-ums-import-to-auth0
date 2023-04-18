@@ -52,7 +52,6 @@ if $HARD;
 then
   echo ✨
   rm -rf ./json
-  rm -rf .platform
   rm -rf .users-exports
   rm -rf .users-imports
   rm -rf .validate
@@ -63,7 +62,6 @@ else
   then
     echo ✨
     dirs ./json
-    dirs .platform
     dirs .users-exports
     dirs .users-imports
     dirs .validate

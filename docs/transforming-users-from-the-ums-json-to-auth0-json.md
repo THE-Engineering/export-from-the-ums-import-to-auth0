@@ -6,14 +6,14 @@ With NPM
 
 ```bash
 npm run transform-users -- \
-  --ORIGIN '<USERS JSON FILE>' \
-  --DESTINATION '<AUTH0 JSON FILE>'
+  --ORIGIN "<USERS JSON FILE>" \
+  --DESTINATION "<AUTH0 JSON FILE>"
 ```
 
 Otherwise
 
 ```bash
 node ./scripts/transform-users.mjs \
-  --ORIGIN '<USERS JSON FILE>' \
-  --DESTINATION '<AUTH0 JSON FILE>'
+  --ORIGIN "<USERS JSON FILE>" \
+  --DESTINATION "<AUTH0 JSON FILE>"
 ```

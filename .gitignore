@@ -16,14 +16,14 @@
 /connection.json
 /connection.*.json
 
-#Platform.sh
-.platform
-
 # JSON
 /json
 .users-imports
 .users-exports
 .validate
+
+# SSH
+*.pem
 
 # Environment
 .env

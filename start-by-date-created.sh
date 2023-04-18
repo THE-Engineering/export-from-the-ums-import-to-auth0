@@ -8,8 +8,6 @@ source ./utils.sh
 
 get_args "$@";
 
-trap platform_tunnel_close EXIT
-
 if [[ -z "$SINCE" ]];
 then
   echo Required argument must be defined:
@@ -28,38 +26,7 @@ DEFAULT_STATUS_JSON_DIRECTORY=./json/status
 DEFAULT_USERS_IMPORTS_JSON_DIRECTORY=.users-imports
 DEFAULT_USERS_EXPORTS_JSON_DIRECTORY=.users-exports
 
-mkdir .platform 2> /dev/null
-
 echo ✨
-
-platform_tunnel_open;
-
-platform_tunnel_list;
-
-if ! has_mariadb_user;
-then
-  MARIADB_USER=$(get_mariadb_user)
-fi
-
-if ! has_mariadb_password;
-then
-  MARIADB_PASSWORD=$(get_mariadb_password)
-fi
-
-if ! has_mariadb_host;
-then
-  MARIADB_HOST=$(get_mariadb_host)
-fi
-
-if ! has_mariadb_port;
-then
-  MARIADB_PORT=$(get_mariadb_port)
-fi
-
-if ! has_mariadb_database;
-then
-  MARIADB_DATABASE=$(get_mariadb_database)
-fi
 
 if ! has_mariadb;
 then
@@ -146,17 +113,11 @@ then
 
   echo -e "Exporting users from THE UMS \033[0;90mfor Step 1\033[0m"
 
-  platform_tunnel_open;
-
-  platform_tunnel_list;
-
   users_by_date_created;
 
   # shellcheck disable=SC2181
   if [[ $? == 0 ]];
   then
-    platform_tunnel_close;
-
     echo -e "Transforming users \033[0;90mfor Step 1\033[0m"
 
     transform_users;

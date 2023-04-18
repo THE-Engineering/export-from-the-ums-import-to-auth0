@@ -8,6 +8,7 @@
 .eslintignore
 .eslintrc
 
+.git
 .github
 .gitattributes
 .gitignore
@@ -29,13 +30,15 @@ README.md
 
 # JSON
 /json
-.platform
 .users-exports
 .users-imports
 .validate
 
 # Shell
 /scripts/*.sh
+
+# SSH
+*.pem
 
 # Docker
 .dockerignore
