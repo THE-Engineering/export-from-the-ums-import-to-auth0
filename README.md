@@ -41,7 +41,7 @@ These documents assume that a developer is preparing their _development environm
 
 ### In Development and Production
 
-[Exporting users](docs/exporting-users-from-the-ums.md) in a production environment does not require a secure tunnel
+[Exporting users](docs/exporting-users-from-the-ums.md) in production does not require a secure tunnel
 
 ### Environment variables and command line arguments
 
