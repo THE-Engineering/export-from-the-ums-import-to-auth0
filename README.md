@@ -45,7 +45,7 @@ These documents assume that a developer is preparing their _development environm
 
 Regardless of the environment _all data managed by this application_ is encrypted and must be decrypted for use
 
-You can populate your `.env` file with the `CRYPTO_KEY` environment variable [documented in **Cypto**](#crypto)
+You can populate your `.env` file with the `CRYPTO_KEY` environment variable [documented in **Shared secret**](#shared-secret)
 
 ### In Development
 
