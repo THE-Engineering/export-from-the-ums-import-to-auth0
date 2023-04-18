@@ -41,7 +41,11 @@ These documents assume that a developer is preparing their _development environm
 
 ### In Development and Production
 
-A `.env.default` file in the project root describes the _required_ environment variables from which you can create a `.env` file
+[Exporting users](docs/exporting-users-from-the-ums.md) in a production environment does not require a secure tunnel
+
+### Environment variables and command line arguments
+
+The `.env.default` file describes _required_ environment variables from which you can create a `.env` file
 
 You must populate your `.env` file with the environment variables [documented in **Scripts**](#scripts)
 
