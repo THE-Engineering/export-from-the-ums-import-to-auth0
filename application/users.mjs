@@ -39,8 +39,7 @@ export default async function getUsers () {
   FROM Users AS users
     JOIN Profile AS profile
       ON users.uid = profile.uid
-  ORDER BY users.uid
-  LIMIT 2000;
+  ORDER BY users.uid;
   `.trim())
 
   await connection.end()

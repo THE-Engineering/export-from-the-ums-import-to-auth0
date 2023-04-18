@@ -1,6 +1,5 @@
 FROM node:18.15-alpine
 RUN apk update
-RUN apk add --no-cache openssh
 RUN apk add --no-cache bash
 ENV NODE_ENV=production
 WORKDIR /app

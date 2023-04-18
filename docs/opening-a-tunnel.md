@@ -6,7 +6,7 @@ You will need the _shared private key_ for the AWS bastion _from DevOps_
 - Ensure that it is readable only by your user
 
 ```bash
-chmod 600 ~/.ssh/bastion.pem
+chmod 0600 ~/.ssh/bastion.pem
 ```
 
 You need values for these placeholders
