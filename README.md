@@ -41,6 +41,12 @@ These documents assume that a developer is preparing their _development environm
 - [Exporting users from Auth0](docs/exporting-users-from-auth0.md)
 - [Validation](docs/validation.md)
 
+#### Other scripts
+
+- [Exporting users from THE UMS _by date changed_](docs/exporting-users-from-the-ums-by-date-changed.md)
+- [Exporting users from THE UMS _by date created_](docs/exporting-users-from-the-ums-by-date-created.md)
+- [Removing users from Auth0](docs/removing-users-from-auth0.md)
+
 ## Starting with `npm start`
 
 Regardless of the environment _all data managed by this application_ is encrypted and must be decrypted for use
