@@ -113,6 +113,30 @@ Docker must provide the container with _at minimum_ 4GB RAM
 docker build -t export-from-the-ums-import-to-auth0 .
 ```
 
+#### Building the _by date_ Docker image
+
+Exports users from THE UMS by date _changed_ or _created_ since a _date_ expressed in [Unix time](https://www.unixtimestamp.com/) and imports them to Auth0
+
+```bash
+docker build -f by-date.Dockerfile -t export-from-the-ums-import-to-auth0 .
+```
+
+#### Building the _by date changed_ Docker image
+
+Exports users from THE UMS by date _changed_ since a _date_ expressed in [Unix time](https://www.unixtimestamp.com/) and imports them to Auth0
+
+```bash
+docker build -f by-date-changed.Dockerfile -t export-from-the-ums-import-to-auth0 .
+```
+
+#### Building the _by date created_ Docker image
+
+Exports users from THE UMS by date _created_ since a _date_ expressed in [Unix time](https://www.unixtimestamp.com/) and imports them to Auth0
+
+```bash
+docker build -f by-date-created.Dockerfile -t export-from-the-ums-import-to-auth0 .
+```
+
 ### Starting the Docker container
 
 ```bash
