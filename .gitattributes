@@ -5,3 +5,10 @@
 *.sh  text eol=lf
 *.mjs text eol=lf
 *.cjs text eol=lf
+.eslintignore text eol=lf
+.eslintrc text eol=lf
+.npmignore text eol=lf
+.npmrc text eol=lf
+.dockerignore text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf

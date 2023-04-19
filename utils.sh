@@ -251,6 +251,55 @@ has_mariadb () {
   fi
 }
 
+has_git_lfs_user () {
+  if [[ -z "$GIT_LFS_USER" ]];
+  then
+    false
+  fi
+}
+
+has_git_lfs_personal_access_token () {
+  if [[ -z "$GIT_LFS_PERSONAL_ACCESS_TOKEN" ]];
+  then
+    false
+  fi
+}
+
+has_git_lfs_repo () {
+  if [[ -z "$GIT_LFS_REPO" ]];
+  then
+    false
+  fi
+}
+
+has_git_lfs () {
+  if ! has_git_lfs_user || ! has_git_lfs_personal_access_token || ! has_git_lfs_repo;
+  then
+    false
+  fi
+}
+
+has_git_user_name () {
+  if [[ -z "$GIT_USER_NAME" ]];
+  then
+    false
+  fi
+}
+
+has_git_user_email () {
+  if [[ -z "$GIT_USER_EMAIL" ]];
+  then
+    false
+  fi
+}
+
+has_git () {
+  if ! has_git_user_name || ! has_git_user_email;
+  then
+    false
+  fi
+}
+
 archive_files () {
   local files_count
 

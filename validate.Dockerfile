@@ -9,4 +9,5 @@ COPY package.json package-lock.json ./
 RUN echo "update-notifier=false" > ./.npmrc
 RUN npm ci --quiet
 COPY . .
-ENTRYPOINT npm run start:by-date-created
+RUN chmod +x ./validate.entrypoint.sh
+ENTRYPOINT ./validate.entrypoint.sh

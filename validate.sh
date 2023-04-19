@@ -62,6 +62,8 @@ then
   archive_files "${USERS_EXPORTS_JSON_DIRECTORY-$DEFAULT_USERS_EXPORTS_JSON_DIRECTORY}";
   archive_files .validate;
 
+  users;
+
   if
     $USERS_BY_USERS_IMPORTS ||
     $USERS_BY_USERS_EXPORTS ||
@@ -165,6 +167,26 @@ then
   # shellcheck disable=SC2181
   if [[ $? == 0 ]];
   then
+    if has_git_lfs && has_git;
+    then
+      # Git LFS and Git are configured
+
+      source ./git-lfs.sh "$PWD"
+    else
+      # Git LFS or Git is not configured
+
+      ! has_git_lfs_user && \
+      echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_LFS_USER\033[0m"
+      ! has_git_lfs_personal_access_token && \
+      echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_LFS_PERSONAL_ACCESS_TOKEN\033[0m"
+      ! has_git_lfs_repo && \
+      echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_LFS_REPO\033[0m"
+      ! has_git_user_name && \
+      echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_USER_NAME\033[0m"
+      ! has_git_user_email && \
+      echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_USER_EMAIL\033[0m"
+    fi
+
     echo 👋
     exit 0
   fi
