@@ -40,4 +40,4 @@ Otherwise
   --DATE_CREATED <DATE CREATED>
 ```
 
-Exported JSON is written to the file `./json/users.json`
+Exported JSON is written to the _Destination_ file path

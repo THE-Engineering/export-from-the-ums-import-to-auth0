@@ -20,6 +20,8 @@ npm run users -- \
   --DESTINATION "<USERS JSON FILE>"
 ```
 
+Exported JSON is written to the _Destination_ file path
+
 #### Step 2 - Remove users
 
 With NPM
@@ -54,6 +56,8 @@ npm run users-exports -- \
   --USERS_EXPORTS_PATH "<USERS EXPORTS JSON FILE>"
 ```
 
+Exported JSON is written to the _Users Exports_ file path
+
 #### Step 2 - Remove users
 
 With NPM
@@ -87,6 +91,8 @@ npm run users-imports -- \
 ./script/users-imports.mjs -- \
   --USERS_IMPORTS_PATH "<USERS IMPORTS JSON FILE>"
 ```
+
+Exported JSON is written to the _Users Imports_ file path
 
 #### Step 2 - Remove users
 

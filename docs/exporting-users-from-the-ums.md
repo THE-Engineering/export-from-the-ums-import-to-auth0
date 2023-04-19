@@ -37,4 +37,4 @@ Otherwise
   --DESTINATION "<USERS JSON FILE>"
 ```
 
-Exported JSON is written to the file `./json/users.json`
+Exported JSON is written to the _Destination_ file path
