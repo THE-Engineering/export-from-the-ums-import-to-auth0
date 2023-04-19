@@ -20,7 +20,7 @@ import getUserMail from '#utils/get-user-mail'
 import sortByUid from '#utils/sort-by-uid'
 import handleError from '#utils/handle-error'
 
-function toSet (usersImports) {
+function toSet (usersImports = []) {
   return (
     new Set(
       usersImports
@@ -46,7 +46,7 @@ async function app () {
   console.log('🚀')
 
   try {
-    const users = await readFromFilePath(ORIGIN)
+    const users = await readFromFilePath(ORIGIN) ?? []
     const usersImports = await getUsersImports(USERS_IMPORTS_PATH)
     await writeToFilePath(DESTINATION, users.reduce(getReduce(toSet(usersImports)), []).sort(sortByUid))
   } catch (e) {

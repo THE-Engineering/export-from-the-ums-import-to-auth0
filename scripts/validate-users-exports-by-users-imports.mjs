@@ -20,7 +20,7 @@ import validate from '#utils/validate-users-exports'
 import sortByUserId from '#utils/sort-by-user-id'
 import handleError from '#utils/handle-error'
 
-function toSet (usersImports) {
+function toSet (usersImports = []) {
   return (
     new Set(
       usersImports
@@ -49,7 +49,7 @@ async function app () {
   console.log('🚀')
 
   try {
-    const usersExports = await getUsersExports(ORIGIN)
+    const usersExports = await getUsersExports(ORIGIN) ?? []
     const usersImports = await getUsersImports(USERS_IMPORTS_PATH)
     await writeToFilePath(DESTINATION, usersExports.reduce(getReduce(toSet(usersImports)), []).sort(sortByUserId))
   } catch (e) {
