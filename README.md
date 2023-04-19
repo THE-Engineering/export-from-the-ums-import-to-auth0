@@ -14,7 +14,7 @@ It can be built for Docker
 
 You should provide `CRYPTO_KEY` as an _environment variable_ (ensuring it is not read from or written to disk, logged, or printed in the terminal)
 
-_All data managed by this application_ is encrypted and it can only be decrypted with the same shared secret
+_All data managed by this application_ is encrypted using a shared secret and it can only be decrypted with the same shared secret
 
 ### AWS
 

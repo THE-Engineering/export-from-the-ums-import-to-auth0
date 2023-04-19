@@ -3,6 +3,12 @@
 
 Validation produces a set of JSON files. All except one of those files is a _diff_ between other JSON files
 
+_All data managed by this application_ is encrypted and must be decrypted for use. In **Production** you must retrieve them from the container
+
+You can decrypt JSON files at the command line in your development environment with [@sequencemedia/crypto](https://github.com/sequencemedia/crypto)[^1]
+
+## Parameters
+
 - _Users_ `1` validates fields and values in THE UMS users source
 - _Users by users imports_ `2` is a diff of THE UMS users and the users dispatched to Auth0
 - _Users by users exports_ `3` is a diff of THE UMS users and the users retrieved from Auth0
@@ -77,3 +83,7 @@ USERS_EXPORTS_BY_USERS_IMPORTS=false # (5)
 USERS_IMPORTS_BY_USERS=false # (6)
 USERS_EXPORTS_BY_USERS=true # (7)
 ```
+
+## Footnotes
+
+[^1]: Refer to [Bash scripts](https://github.com/sequencemedia/crypto#bash-scripts) in the `README`
