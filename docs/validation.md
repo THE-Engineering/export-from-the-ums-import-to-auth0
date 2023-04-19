@@ -3,9 +3,9 @@
 
 Validation produces a set of JSON files. All except one of those files is a _diff_ between other JSON files
 
-_All data managed by this application_ is encrypted and must be decrypted for use. In **Production** you must retrieve them from the container
+_All data managed by this application_ is encrypted and must be decrypted for use
 
-You can decrypt JSON files at the command line in your development environment with [@sequencemedia/crypto](https://github.com/sequencemedia/crypto)[^1]
+You can decrypt JSON files at the command line in your development environment using [@sequencemedia/crypto](https://github.com/sequencemedia/crypto)[^1]
 
 ## Parameters
 
@@ -84,6 +84,4 @@ USERS_IMPORTS_BY_USERS=false # (6)
 USERS_EXPORTS_BY_USERS=true # (7)
 ```
 
-## Footnotes
-
-[^1]: Refer to [Bash scripts](https://github.com/sequencemedia/crypto#bash-scripts) in the `README`
+[^1]: Refer to [Bash scripts](https://github.com/sequencemedia/crypto#bash-scripts) in the `README` of the GitHub project
