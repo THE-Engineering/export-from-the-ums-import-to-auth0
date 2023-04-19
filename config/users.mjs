@@ -9,3 +9,9 @@ export const DESTINATION = (
     ? args.get('DESTINATION')
     : DEFAULT_USERS_PATH
 )
+
+export const LIMIT = (
+  args.has('LIMIT')
+    ? args.get('LIMIT')
+    : null
+)

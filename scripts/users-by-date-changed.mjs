@@ -8,7 +8,8 @@ import {
 } from 'fs-extra'
 import {
   DESTINATION,
-  DATE_CHANGED
+  DATE_CHANGED,
+  LIMIT
 } from '#config/users-by-date-changed'
 import writeToFilePath from '#utils/write-to-file-path'
 import sortByUid from '#utils/sort-by-uid'
@@ -21,7 +22,7 @@ async function app () {
   console.log('🚀')
 
   try {
-    const users = await getUsersByDateChanged(DATE_CHANGED)
+    const users = await getUsersByDateChanged(DATE_CHANGED, LIMIT)
     await writeToFilePath(DESTINATION, users.sort(sortByUid))
   } catch (e) {
     handleError(e)

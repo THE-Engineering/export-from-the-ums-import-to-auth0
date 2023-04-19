@@ -9,7 +9,7 @@ function transform ({ key, value }) {
     }
   }
 
-  if (key === 'DATE_CHANGED' || key === 'DATE_CREATED') {
+  if (key === 'DATE_CHANGED' || key === 'DATE_CREATED' || key === 'LIMIT') {
     if (typeof value === 'string' && value.length) {
       return {
         key,

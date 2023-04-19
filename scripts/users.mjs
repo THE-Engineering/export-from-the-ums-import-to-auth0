@@ -7,7 +7,8 @@ import {
   ensureDir
 } from 'fs-extra'
 import {
-  DESTINATION
+  DESTINATION,
+  LIMIT
 } from '#config/users'
 import writeToFilePath from '#utils/write-to-file-path'
 import sortByUid from '#utils/sort-by-uid'
@@ -20,7 +21,7 @@ async function app () {
   console.log('🚀')
 
   try {
-    const users = await getUsers()
+    const users = await getUsers(LIMIT)
     await writeToFilePath(DESTINATION, users.sort(sortByUid))
   } catch (e) {
     handleError(e)
