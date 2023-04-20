@@ -15,7 +15,7 @@ _Updating_ a batch of users in Auth0 takes ~ 14 minutes
 - Exports users from THE UMS _changed_ since application start and imports them into Auth0
 - Exports users from THE UMS _created_ since application start and imports them into Auth0
 - Generates validation JSON
-- [Pushes the validation JSON files into GitHub](#pushing-validation-json-files-into-github)
+- [Pushes the validation JSON files into GitHub](pushing-validation-json-files-into-github.md)
 - Application stops
 
 By default, import into Auth0 has the `upsert` flag set as `true` so the application can be run _once_ or _more_ but be aware that _creating_ takes much less time in Auth0 than _updating_ so any second or additional run will take longer
@@ -38,7 +38,7 @@ Add the environment variable `SINCE` which is a UTC datetime _in seconds_[^1]
 - Exports users from THE UMS _changed_ since `SINCE` and imports them into Auth0
 - Exports users from THE UMS _created_ since `SINCE` and imports them into Auth0
 - Generates validation JSON
-- [Pushes the validation JSON files into GitHub](#pushing-validation-json-files-into-github)
+- [Pushes the validation JSON files into GitHub](pushing-validation-json-files-into-github.md)
 - Application stops
 
 To re-run, either re-use `SINCE` or amend the value to a more recent UTC datetime
@@ -52,7 +52,7 @@ Add the environment variable `SINCE` which is a UTC datetime _in seconds_[^1]
 - Application starts
 - Exports users from THE UMS _changed_ since `SINCE` and imports them into Auth0
 - Generates validation JSON
-- [Pushes the validation JSON files into GitHub](#pushing-validation-json-files-into-github)
+- [Pushes the validation JSON files into GitHub](pushing-validation-json-files-into-github.md)
 - Application stops
 
 As with `npm run start:by-date` and `npm run start:by-date-created`, to _re-run_ either re-use `SINCE` or amend the value to a more recent UTC datetime
@@ -66,7 +66,7 @@ Add the environment variable `SINCE` which is a UTC datetime _in seconds_[^1]
 - Application starts
 - Exports users from THE UMS _created_ since `SINCE` and imports them into Auth0
 - Generates validation JSON
-- [Pushes the validation JSON files into GitHub](#pushing-validation-json-files-into-github)
+- [Pushes the validation JSON files into GitHub](pushing-validation-json-files-into-github.md)
 - Application stops
 
 As with `npm run start:by-date` and `npm run start:by-date-changed`, to _re-run_ either re-use `SINCE` or amend the value to a more recent UTC datetime
@@ -77,55 +77,7 @@ All of the tasks have a step to _generate validation JSON_ which takes a few sec
 
 You can also build the image using Dockerfile `validate.Dockerfile`
 
-With additional configuration the application can push the validation JSON files into GitHub
-
-### Pushing validation JSON files into GitHub
-
-You will need
-
-- A GitHub user
-- A GitHub personal access token
-- A GitHub repository
-
-The application uses _Git LFS_ since the validation JSON files _may be_ too large for Git
-
-**Note** that the validation JSON files are _encrypted_ and must be _decrypted_ after they are pulled from GitHub
-
-Add the environment variables
-
-- `GIT_USER_NAME` which, for me, is "Jonathan Perry"
-- `GIT_USER_EMAIL` which, again for me, is "jonathanperry@sequencemedia.net"
-- `GIT_USER_ID` is a GitHub user login ID (I am "sequencemedialimited")
-- The `GIT_REPOSITORY` value is _part of_ the HTTPS address of the repository for these JSON files
-- A `GIT_PERSONAL_ACCESS_TOKEN` which must be created in GitHub for the GitHub user `GIT_USER_ID`
-
-#### `GIT_REPOSITORY` environment variable
-
-The value of the `GIT_REPOSITORY` environment variable is an HTTPS address _excluding `https://`_
-
-In other words, if the HTTPS address for the repository is
-
-```
-https://github.com/THE-Engineering/validation-json-files.git
-```
-
-Then the value the value of `GIT_REPOSITORY` environment variable should be
-
-```
-github.com/THE-Engineering/validation-json-files.git
-```
-
-(The required URL is assembled in code from `GIT_REPOSITORY` and other environment variables)
-
-#### `GIT_PERSONAL_ACCESS_TOKEN` environment variable
-
-The `GIT_PERSONAL_ACCESS_TOKEN` should allow reading and writing to `GIT_REPOSITORY` for the GitHub user `GIT_USER_ID`
-
-1. Create a Fine Grained token with an expiration of 30 days
-2. Grant it _Repository Access_ to `GIT_REPOSITORY`
-![Repository Access](images/git-personal-access-token-repository-access.png)
-3. Grant it read and write _Permissions_ for _"Contents"_
-![Permissions](images/git-personal-access-token-permissions.png)
+With additional configuration the application can [push the validation JSON files into GitHub](pushing-validation-json-files-into-github.md)
 
 ## Removing users
 
