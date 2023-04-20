@@ -227,8 +227,11 @@ A complement of _validation_ tasks can be run in the development environment or 
 
 Any or all of these tasks can be run by building the image [using Dockerfile `validate.Dockerfile`](#starting-with-npm run-validate) and setting the environment variables [documented in **Validation**](validation.md)
 
-[^1]: JS `Date` instances have values in _milliseconds_ so you can divide a JS date by 1000 for the same value in _seconds_
+## Producing a UTC datetime from a JS `Date`
 
 ```javascript
 (new Date('Tuesday, 18 April 2023')) / 1000
 ```
+
+[^1]: JS `Date` instances have values in _milliseconds_ so to [produce a UTC datetime you can divide a JS date by 1000 for the same value in _seconds_](#producing-a-utc-datetime-from-a-js-date)
+
