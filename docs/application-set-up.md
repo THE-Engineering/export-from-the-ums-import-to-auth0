@@ -101,9 +101,13 @@ You must provide `CRYPTO_KEY` as _either_ an environment variable _or_ a command
 
 The container must be provided with _at minimum_ 4GB RAM
 
-These containers are not expected to run in your _development environment_ because _AWS host addresses will not resolve_
+- These containers _are not_ expected to run in your _development environment_. _AWS host addresses will only resolve on the AWS network_
 
-They are expected to run in _staging_ or _production_
+In **Development** you must [open a secure tunnel to MariaDB using the bastion in AWS](opening-a-tunnel.md)
+
+- These containers _are_ expected to run in _staging_ or _production_
+
+A secure tunnel is unnecessary in **Production**
 
 ### Building the Docker image
 
