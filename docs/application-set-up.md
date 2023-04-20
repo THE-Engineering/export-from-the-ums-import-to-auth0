@@ -149,7 +149,7 @@ docker build -f by-date-created.Dockerfile -t export-from-the-ums-import-to-auth
 
 #### Building the _validate_ Docker image
 
-Refer also to **Features** [Starting with `npm run validate`](application-features.md#starting-with-npm-run-validate) and [Validation](application-features.md#validation)
+Refer also to [**Features** - Starting with `npm run validate`](application-features.md#starting-with-npm-run-validate) and [**Features** - Validation](application-features.md#validation)
 
 Exports users from THE UMS to perform validation tasks
 
