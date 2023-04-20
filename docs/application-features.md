@@ -10,6 +10,8 @@ _Updating_ a batch of users in Auth0 takes ~ 14 minutes
 
 ## Starting with `npm start`
 
+Build the image using `Dockerfile`. Refer to [Set-up](application-set-up.md#building-the-docker-image)
+
 - Application starts
 - Exports all users from THE UMS and imports them into Auth0
 - Exports users from THE UMS _changed_ since application start and imports them into Auth0
@@ -26,11 +28,11 @@ Preferably, for a second or additional run use either
 2. [`npm run start:by-date-changed`](#starting-with-npm-run-startby-date-changed)
 3. [`npm run start:by-date-created`](#starting-with-npm-run-startby-date-created)
 
-Each has its own Dockerfile and exports a different set of users, which will be significantly smaller than that produced by `npm start` and take much less time
+Each has its own Dockerfile and exports a different set of users from MariaDB which will be significantly smaller than that produced by `npm start` (and take much less time to import into Auth0)
 
 ## Starting with `npm run start:by-date`
 
-Build the image using Dockerfile `by-date.Dockerfile`
+Build the image using Dockerfile `by-date.Dockerfile`. Refer to [Set-up](application-set-up.md#building-the-by-date-docker-image)
 
 Add the environment variable `SINCE` which is a UTC datetime _in seconds_[^1]
 
@@ -45,7 +47,7 @@ To re-run, either re-use `SINCE` or amend the value to a more recent UTC datetim
 
 ## Starting with `npm run start:by-date-changed`
 
-Build the image using Dockerfile `by-date-changed.Dockerfile`
+Build the image using Dockerfile `by-date-changed.Dockerfile`. Refer to [Set-up](application-set-up.md#building-the-by-date-changed-docker-image)
 
 Add the environment variable `SINCE` which is a UTC datetime _in seconds_[^1]
 
@@ -59,7 +61,7 @@ As with `npm run start:by-date` and `npm run start:by-date-created`, to _re-run_
 
 ## Starting with `npm run start:by-date-created`
 
-Build the image using Dockerfile `by-date-created.Dockerfile`
+Build the image using Dockerfile `by-date-created.Dockerfile`. Refer to [Set-up](application-set-up.md#building-the-by-date-created-docker-image)
 
 Add the environment variable `SINCE` which is a UTC datetime _in seconds_[^1]
 
@@ -75,7 +77,7 @@ As with `npm run start:by-date` and `npm run start:by-date-changed`, to _re-run_
 
 All of the tasks have a step to _generate validation JSON_ which takes a few seconds to compare users according to particular criteria before writing JSON files
 
-You can also build the image using Dockerfile `validate.Dockerfile`
+Build the image using Dockerfile `validate.Dockerfile`. Refer to [Set-up](application-set-up.md#building-the-validate-docker-image)
 
 With additional configuration the application can [push the validation JSON files into GitHub](pushing-validation-json-files-into-github.md)
 
