@@ -22,9 +22,9 @@ By default, import into Auth0 has the `upsert` flag set as `true` so the applica
 
 Preferably, for a second or additional run use either
 
-1. `npm run start:by-date`
-2. `npm run start:by-date-changed`
-3. `npm run start:by-date-created`
+1. [`npm run start:by-date`](#starting-with-npm-run-startby-date)
+2. [`npm run start:by-date-changed`](#starting-with-npm-run-startby-date-changed)
+3. [`npm run start:by-date-created`](#starting-with-npm-run-startby-date-created)
 
 Each has its own Dockerfile and exports a different set of users, which will be significantly smaller than that produced by `npm start` and take much less time
 
