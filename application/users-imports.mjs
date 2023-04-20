@@ -16,16 +16,6 @@ export {
   getJobById
 } from './common/index.mjs'
 
-/**
- *  const textEncoder = new TextEncoder()
- *  const fileBlob = new Blob([textEncoder.encode(fileData.toString())], { type: 'application/json' }) // or `{ type: 'application/octet-stream' }`
- */
-
-/**
- *  const fileData = await readFile(filePath, 'utf8')
- *  const fileBlob = new Blob([fileData], { type: 'application/json' }) // or `{ type: 'application/octet-stream' }`
- */
-
 async function getFormData (users) {
   const formData = new FormData()
   const textEncoder = new TextEncoder()
