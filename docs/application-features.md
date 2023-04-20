@@ -98,7 +98,7 @@ There are tasks for generating these JSON files, too
 
 ### `npm run remove-by-users`
 
-[_Connect to the bastion in AWS_](open-a-tunnel.md)
+[_Connect to the bastion in AWS_](opening-a-tunnel.md)
 
 #### Generate the _users JSON file_
 
@@ -139,7 +139,7 @@ npm run remove-by-users -- \
 
 ### `npm run remove-by-users-imports`
 
-[_Connect to the bastion in AWS_](open-a-tunnel.md)
+[_Connect to the bastion in AWS_](opening-a-tunnel.md)
 
 #### Generate the _users JSON file_
 
