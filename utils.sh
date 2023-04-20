@@ -252,21 +252,21 @@ has_mariadb () {
 }
 
 has_git_lfs_user () {
-  if [[ -z "$GIT_LFS_USER" ]];
+  if [[ -z "$GIT_USER_ID" ]];
   then
     false
   fi
 }
 
 has_git_lfs_personal_access_token () {
-  if [[ -z "$GIT_LFS_PERSONAL_ACCESS_TOKEN" ]];
+  if [[ -z "$GIT_PERSONAL_ACCESS_TOKEN" ]];
   then
     false
   fi
 }
 
 has_git_lfs_repo () {
-  if [[ -z "$GIT_LFS_REPO" ]];
+  if [[ -z "$GIT_REPOSITORY" ]];
   then
     false
   fi

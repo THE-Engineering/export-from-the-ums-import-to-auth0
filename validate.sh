@@ -176,11 +176,11 @@ then
       # Git LFS or Git is not configured
 
       ! has_git_lfs_user && \
-      echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_LFS_USER\033[0m"
+      echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_USER_ID\033[0m"
       ! has_git_lfs_personal_access_token && \
-      echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_LFS_PERSONAL_ACCESS_TOKEN\033[0m"
+      echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_PERSONAL_ACCESS_TOKEN\033[0m"
       ! has_git_lfs_repo && \
-      echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_LFS_REPO\033[0m"
+      echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_REPOSITORY\033[0m"
       ! has_git_user_name && \
       echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_USER_NAME\033[0m"
       ! has_git_user_email && \
