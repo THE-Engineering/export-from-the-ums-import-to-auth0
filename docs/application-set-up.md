@@ -12,7 +12,7 @@ _All data managed by this application_ is encrypted using a shared secret and it
 
 You will need credentials for MariaDB in AWS which you can _get from DevOps_
 
-In **Development** you must [open a secure tunnel to MariaDB using the bastion in AWS](docs/opening-a-tunnel.md)
+In **Development** you must [open a secure tunnel to MariaDB using the bastion in AWS](opening-a-tunnel.md)
 
 A secure tunnel is unnecessary in **Production**
 
@@ -20,24 +20,24 @@ A secure tunnel is unnecessary in **Production**
 
 You should create _either_ a manual or a programmatic acccess token for [Auth0](https://manage.auth0.com)
 
-- About [Auth0 manual and programmatic access tokens](docs/auth0-manual-and-programmatic-access-tokens.md)
-- [Creating a programmatic access token](docs/creating-a-programmatic-access-token.md)
+- About [Auth0 manual and programmatic access tokens](auth0-manual-and-programmatic-access-tokens.md)
+- [Creating a programmatic access token](creating-a-programmatic-access-token.md)
 
 ## Scripts
 
 These documents assume that a developer is preparing their _development environment_ to perform tasks manually but much of the same configuration is required for _production_
 
-- [Exporting users from THE UMS](docs/exporting-users-from-the-ums.md)
-- [Transforming users to Auth0 JSON](docs/transforming-users-from-the-ums-json-to-auth0-json.md)
-- [Importing users to Auth0](docs/importing-users-to-auth0.md)
-- [Exporting users from Auth0](docs/exporting-users-from-auth0.md)
-- [Validation](docs/validation.md)
+- [Exporting users from THE UMS](exporting-users-from-the-ums.md)
+- [Transforming users to Auth0 JSON](transforming-users-from-the-ums-json-to-auth0-json.md)
+- [Importing users to Auth0](importing-users-to-auth0.md)
+- [Exporting users from Auth0](exporting-users-from-auth0.md)
+- [Validation](validation.md)
 
 ### Other scripts
 
-- [Exporting users from THE UMS _by date changed_](docs/exporting-users-from-the-ums-by-date-changed.md)
-- [Exporting users from THE UMS _by date created_](docs/exporting-users-from-the-ums-by-date-created.md)
-- [Removing users from Auth0](docs/removing-users-from-auth0.md)
+- [Exporting users from THE UMS _by date changed_](exporting-users-from-the-ums-by-date-changed.md)
+- [Exporting users from THE UMS _by date created_](exporting-users-from-the-ums-by-date-created.md)
+- [Removing users from Auth0](removing-users-from-auth0.md)
 
 ## Starting with `npm start`
 
@@ -49,11 +49,11 @@ You can populate your `.env` file with the `CRYPTO_KEY` environment variable [do
 
 ### In Development
 
-[Exporting users from THE UMS](docs/exporting-users-from-the-ums.md) in your _development environment_ requires [a secure tunnel to MariaDB in AWS](docs/opening-a-tunnel.md)
+[Exporting users from THE UMS](exporting-users-from-the-ums.md) in your _development environment_ requires [a secure tunnel to MariaDB in AWS](opening-a-tunnel.md)
 
 ### In Development and Production
 
-[Exporting users from THE UMS](docs/exporting-users-from-the-ums.md) in _production_ does not require a secure tunnel
+[Exporting users from THE UMS](exporting-users-from-the-ums.md) in _production_ does not require a secure tunnel
 
 ### Environment variables and command line arguments
 
