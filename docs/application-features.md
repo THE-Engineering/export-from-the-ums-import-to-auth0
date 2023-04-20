@@ -142,7 +142,7 @@ There are tasks for generating these JSON files, too
 
 [_Connect to the bastion in AWS_](open-a-tunnel.md)
 
-Generate the _users JSON file_
+#### Generate the _users JSON file_
 
 Users are exported from MariaDB
 
@@ -152,7 +152,7 @@ npm run users
 
 By default this writes the _users JSON file_ to `./json/users.json`
 
-Remove those users
+#### Remove those users
 
 ```bash
 npm run remove-by-users
@@ -164,7 +164,6 @@ Each user takes ~ 1.75 seconds to remove from Auth0
 
 - You can also generate the _users JSON file_ with `npm run users-by-date-changed`
 - You can also generate the _users JSON file_ with `npm run users-by-date-created`
-
 
 The _users JSON file_ path can be given with the environment variable `USERS_JSON_FILE`
 
@@ -184,9 +183,9 @@ npm run remove-by-users -- \
 
 [_Connect to the bastion in AWS_](open-a-tunnel.md)
 
-Users are exported from MariaDB
+#### Generate the _users JSON file_
 
-Generate the _users JSON file_
+Users are exported from MariaDB
 
 ```bash
 npm run users-imports
@@ -194,7 +193,7 @@ npm run users-imports
 
 By default this writes the _users JSON files_ to _directory_ `.users-imports`
 
-Remove those users
+#### Remove those users
 
 ```bash
 npm run remove-by-users-imports
@@ -222,9 +221,9 @@ npm run remove-by-users-imports -- \
 
 _You need not connect to the bastion in AWS_
 
-Users are exported from Auth0
+#### Generate the _users JSON file_
 
-Generate the _users JSON file_
+Users are exported from Auth0
 
 ```bash
 npm run users-exports
@@ -232,7 +231,7 @@ npm run users-exports
 
 By default this writes the _users JSON file_ to `.users-exports/users.json`
 
-Remove those users
+#### Remove those users
 
 ```bash
 npm run remove-by-users-exports
