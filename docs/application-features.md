@@ -129,7 +129,7 @@ You can remove users from Auth0
 - `npm run remove-by-users-imports`
 - `npm run remove-by-users-exports`
 
-These tasks are probably only useful in the development environment in which case _you must connect to the bastion in AWS for access to MariaDB_
+These tasks may only be useful in the _development environment_ in which case you must [open a secure tunnel to MariaDB using the bastion in AWS](opening-a-tunnel.md)
 
 In each case
 

@@ -4,7 +4,7 @@
 
 `CRYPTO_KEY` is a shared secret which is used to encrypt and decrypt data
 
-You should provide `CRYPTO_KEY` as an _environment variable_ (ensuring it is not read from or written to disk, logged, or printed in the terminal)
+You must provide `CRYPTO_KEY` as an _environment variable_ (ensuring it is not read from or written to disk, logged, or printed in the terminal)
 
 _All data managed by this application_ is encrypted using a shared secret and it can only be decrypted with the same shared secret
 
@@ -18,12 +18,12 @@ A secure tunnel is unnecessary in **Production**
 
 ## Auth0
 
-You should create _either_ a manual or a programmatic acccess token for [Auth0](https://manage.auth0.com)
+You must create _either_ a manual or a programmatic acccess token for [Auth0](https://manage.auth0.com)
 
 - About [Auth0 manual and programmatic access tokens](auth0-manual-and-programmatic-access-tokens.md)
 - [Creating a programmatic access token](creating-a-programmatic-access-token.md)
 
-## Scripts
+## Configuration
 
 These documents assume that a developer is preparing their _development environment_ to perform tasks manually but much of the same configuration is required for _production_
 
@@ -33,7 +33,7 @@ These documents assume that a developer is preparing their _development environm
 - [Exporting users from Auth0](exporting-users-from-auth0.md)
 - [Validation](validation.md)
 
-### Other scripts
+### Other configuration
 
 - [Exporting users from THE UMS _by date changed_](exporting-users-from-the-ums-by-date-changed.md)
 - [Exporting users from THE UMS _by date created_](exporting-users-from-the-ums-by-date-created.md)
@@ -45,7 +45,7 @@ Refer also to [**Features**](application-features.md#starting-with-npm-start)
 
 Regardless of the environment _all data managed by this application_ is encrypted and must be decrypted for use
 
-You can populate your `.env` file with the `CRYPTO_KEY` environment variable [documented in **Shared secret**](#shared-secret)
+You must populate your `.env` file with the `CRYPTO_KEY` environment variable [documented in **Shared secret**](#shared-secret)
 
 ### In Development
 
@@ -95,7 +95,7 @@ npm start -- \
 
 You can _combine_ environment variables with command line arguments (in which case the latter take precedence over the former)
 
-You can provide `CRYPTO_KEY` as _either_ an environment variable _or_ a command line argument but you should be mindful of _logging and echoing_
+You must provide `CRYPTO_KEY` as _either_ an environment variable _or_ a command line argument but you should be mindful of _logging and printing_
 
 ## Docker
 
