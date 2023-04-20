@@ -151,14 +151,8 @@ docker build -f by-date-created.Dockerfile -t export-from-the-ums-import-to-auth
 
 Refer also to **Features** [Starting with `npm run validate`](application-features.md#starting-with-npm-run-validate) and [Validation](application-features.md#validation)
 
-Exports users from THE UMS and executes validation tasks
+Exports users from THE UMS to perform validation tasks
 
 ```bash
 docker build -f validate.Dockerfile -t export-from-the-ums-import-to-auth0 .
-```
-
-### Starting the Docker container
-
-```bash
-docker compose up -d
 ```
