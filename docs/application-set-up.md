@@ -97,9 +97,13 @@ You can _combine_ environment variables with command line arguments (in which ca
 
 You must provide `CRYPTO_KEY` as _either_ an environment variable _or_ a command line argument but you should be mindful of _logging and printing_
 
-## Docker
+## Docker images
 
-Docker must provide the container with _at minimum_ 4GB RAM
+The container must be provided with _at minimum_ 4GB RAM
+
+These containers are not expected to run in your _development environment_ because _AWS host addresses will not resolve_
+
+They are expected to run in _staging_ or _production_
 
 ### Building the Docker image
 
