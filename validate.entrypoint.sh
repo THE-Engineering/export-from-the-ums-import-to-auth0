@@ -18,18 +18,18 @@ DEFAULT_USERS_EXPORTS_JSON_DIRECTORY=.users-exports
 
 echo ✨
 
-if ! has_git_lfs || ! has_git;
+if ! has_git || ! has_git_lfs;
 then
-  ! has_git_lfs_user && \
+  ! has_git_user_id && \
   echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_USER_ID\033[0m"
-  ! has_git_lfs_personal_access_token && \
-  echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_PERSONAL_ACCESS_TOKEN\033[0m"
-  ! has_git_lfs_repo && \
-  echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_REPOSITORY\033[0m"
   ! has_git_user_name && \
   echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_USER_NAME\033[0m"
   ! has_git_user_email && \
   echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_USER_EMAIL\033[0m"
+  ! has_git_lfs_personal_access_token && \
+  echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_LFS_PERSONAL_ACCESS_TOKEN\033[0m"
+  ! has_git_lfs_repo && \
+  echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_LFS_REPOSITORY\033[0m"
 
   echo 👋
   exit 0

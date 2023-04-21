@@ -113,7 +113,7 @@ users_exports () {
     --AUTH0_CLIENT_SECRET "$AUTH0_CLIENT_SECRET" \
     --AUTH0_AUDIENCE "$AUTH0_AUDIENCE" \
     --AUTH0_ACCESS_TOKEN_ENDPOINT "$AUTH0_ACCESS_TOKEN_ENDPOINT" \
-    --USERS_EXPORTS_PATH "${USERS_EXPORTS_JSON_DIRECTORY-$DEFAULT_USERS_EXPORTS_JSON_DIRECTORY}" \
+    --USERS_EXPORTS_PATH "${USERS_EXPORTS_JSON_DIRECTORY-$DEFAULT_USERS_EXPORTS_JSON_DIRECTORY}/users.json" \
     --DESTINATION "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
 }
 
@@ -251,29 +251,8 @@ has_mariadb () {
   fi
 }
 
-has_git_lfs_user () {
+has_git_user_id () {
   if [[ -z "$GIT_USER_ID" ]];
-  then
-    false
-  fi
-}
-
-has_git_lfs_personal_access_token () {
-  if [[ -z "$GIT_PERSONAL_ACCESS_TOKEN" ]];
-  then
-    false
-  fi
-}
-
-has_git_lfs_repo () {
-  if [[ -z "$GIT_REPOSITORY" ]];
-  then
-    false
-  fi
-}
-
-has_git_lfs () {
-  if ! has_git_lfs_user || ! has_git_lfs_personal_access_token || ! has_git_lfs_repo;
   then
     false
   fi
@@ -294,7 +273,28 @@ has_git_user_email () {
 }
 
 has_git () {
-  if ! has_git_user_name || ! has_git_user_email;
+  if ! has_git_user_id || ! has_git_user_name || ! has_git_user_email;
+  then
+    false
+  fi
+}
+
+has_git_lfs_personal_access_token () {
+  if [[ -z "$GIT_LFS_PERSONAL_ACCESS_TOKEN" ]];
+  then
+    false
+  fi
+}
+
+has_git_lfs_repo () {
+  if [[ -z "$GIT_LFS_REPOSITORY" ]];
+  then
+    false
+  fi
+}
+
+has_git_lfs () {
+  if ! has_git_user_id || ! has_git_user_name || ! has_git_user_email || ! has_git_lfs_personal_access_token || ! has_git_lfs_repo;
   then
     false
   fi

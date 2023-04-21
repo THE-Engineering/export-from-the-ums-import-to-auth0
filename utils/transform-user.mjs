@@ -2,7 +2,7 @@ import {
   ALGORITHM,
   ITERATIONS,
   KEY_LENGTH
-} from '#config/transform'
+} from '#config/transform-users'
 
 const PATTERN = /={1,2}$/
 

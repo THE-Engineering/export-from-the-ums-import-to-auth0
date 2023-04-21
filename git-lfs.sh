@@ -13,7 +13,7 @@ boom () {
   exit 1
 }
 
-git clone "https://$GIT_USER_ID:$GIT_PERSONAL_ACCESS_TOKEN@$GIT_REPOSITORY" "$d/.validate" &> /dev/null
+git clone "https://$GIT_USER_ID:$GIT_LFS_PERSONAL_ACCESS_TOKEN@$GIT_LFS_REPOSITORY" "$d/.validate" &> /dev/null
 
 # shellcheck disable=SC2181
 if [[ $? == 0 ]];
@@ -54,7 +54,7 @@ then
   # shellcheck disable=SC2181
   if [[ $? == 0 ]];
   then
-    echo 👋
+    echo 🎉
     exit 0
   fi
 fi

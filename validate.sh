@@ -12,7 +12,7 @@ DEFAULT_USERS_JSON_FILE=./json/users.json
 DEFAULT_STATUS_JSON_DIRECTORY=./json/status
 DEFAULT_USERS_IMPORTS_JSON_DIRECTORY=.users-imports
 DEFAULT_USERS_EXPORTS_JSON_DIRECTORY=.users-exports
-DEFAULT_USERS_EXPORTS_JSON_FILE="${USERS_EXPORTS_JSON_DIRECTORY-$DEFAULT_USERS_EXPORTS_JSON_DIRECTORY}"/users.json
+DEFAULT_USERS_EXPORTS_JSON_FILE="${USERS_EXPORTS_JSON_DIRECTORY-$DEFAULT_USERS_EXPORTS_JSON_DIRECTORY}/users.json"
 
 USERS=false
 USERS_BY_USERS_IMPORTS=false
@@ -167,24 +167,24 @@ then
   # shellcheck disable=SC2181
   if [[ $? == 0 ]];
   then
-    if has_git_lfs && has_git;
+    if has_git_lfs;
     then
-      # Git LFS and Git are configured
+      # Git LFS is configured
 
-      source ./git-lfs.sh "$PWD"
+      bash ./git-lfs.sh "$PWD"
     else
       # Git LFS or Git is not configured
 
-      ! has_git_lfs_user && \
+      ! has_git_user_id && \
       echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_USER_ID\033[0m"
-      ! has_git_lfs_personal_access_token && \
-      echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_PERSONAL_ACCESS_TOKEN\033[0m"
-      ! has_git_lfs_repo && \
-      echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_REPOSITORY\033[0m"
       ! has_git_user_name && \
       echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_USER_NAME\033[0m"
       ! has_git_user_email && \
       echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_USER_EMAIL\033[0m"
+      ! has_git_lfs_personal_access_token && \
+      echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_LFS_PERSONAL_ACCESS_TOKEN\033[0m"
+      ! has_git_lfs_repo && \
+      echo -e " \033[0;33m•\033[0m No \033[0;93m\$GIT_LFS_REPOSITORY\033[0m"
     fi
 
     echo 👋

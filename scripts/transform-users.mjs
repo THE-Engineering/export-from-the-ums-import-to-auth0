@@ -9,7 +9,7 @@ import {
 import {
   ORIGIN,
   DESTINATION
-} from '#config/transform'
+} from '#config/transform-users'
 import readFromFilePath from '#utils/read-from-file-path'
 import writeToFilePath from '#utils/write-to-file-path'
 import sortByUid from '#utils/sort-by-uid'
