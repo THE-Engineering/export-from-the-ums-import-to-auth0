@@ -74,7 +74,7 @@ Or
 
 Alternatively, you can set `.env` environment variables before invoking validation at the command line
 
-```bash
+```dotenv
 USERS=true # (1)
 USERS_BY_USERS_IMPORTS=false # (2)
 USERS_BY_USERS_EXPORTS=true # (3)
