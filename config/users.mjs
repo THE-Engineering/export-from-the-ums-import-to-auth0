@@ -15,3 +15,9 @@ export const LIMIT = (
     ? args.get('LIMIT')
     : null
 )
+
+export const OFFSET = (
+  args.has('OFFSET')
+    ? args.get('OFFSET')
+    : null
+)

@@ -6,8 +6,8 @@ With NPM
 
 ```bash
 npm run transform-users -- \
-  --ORIGIN "<USERS JSON FILE>" \
-  --DESTINATION "<AUTH0 JSON FILE>"
+  --ORIGIN "./json/users.json" \
+  --DESTINATION "./json/auth-payload.json"
 ```
 
 Otherwise

@@ -35,17 +35,19 @@ SELECT
   profile.first_name,
   profile.last_name
 FROM Users AS users
-  JOIN Profile AS profile
+  LEFT JOIN Profile AS profile
     ON users.uid = profile.uid
 ORDER BY users.uid
 `
 
-export default async function getUsers (limit = 0) {
-  const querySql = (
-    limit
-      ? USERS_SQL + `LIMIT ${limit}`
-      : USERS_SQL
-  ).trim() + ';'
+export default async function getUsers (limit = 0, offset = 0) {
+  const LIMIT_SQL = limit ? USERS_SQL + `LIMIT ${limit}` : USERS_SQL
+
+  const OFFSET_SQL = (
+    offset ? LIMIT_SQL + ` OFFSET ${offset}` : LIMIT_SQL
+  )
+
+  const querySql = (OFFSET_SQL).trim() + ';'
 
   const connection = await getConnection()
   const rows = await connection.query(querySql)

@@ -17,10 +17,8 @@ export default function transformUser ({
   const SALT = salt.replace(PATTERN, '')
   const HASH = hash.replace(PATTERN, '')
 
-  return {
+  const userObject = {
     email,
-    given_name: (givenName || '').trim(),
-    family_name: (familyName || '').trim(),
     custom_password_hash: {
       algorithm: 'pbkdf2',
       hash: {
@@ -32,4 +30,14 @@ export default function transformUser ({
       uid
     }
   }
+
+  if (familyName) {
+    userObject.family_name = (familyName || '').trim()
+  }
+
+  if (givenName) {
+    userObject.given_name = (givenName || '').trim()
+  }
+
+  return userObject
 }
