@@ -8,13 +8,12 @@ import {
 } from 'fs-extra'
 import {
   DESTINATION,
-  LIMIT,
-  OFFSET
-} from '#config/users'
+  DRUPAL_UID
+} from '#config/user-by-uid'
 import writeToFilePath from '#utils/write-to-file-path'
 import sortByUid from '#utils/sort-by-uid'
 import handleError from '#utils/handle-error'
-import getUsers from '#application/users'
+import getUserByUid from '#application/user-by-uid'
 
 async function app () {
   await ensureDir(dirname(DESTINATION))
@@ -22,7 +21,7 @@ async function app () {
   console.log('🚀')
 
   try {
-    const users = await getUsers(LIMIT, OFFSET)
+    const users = await getUserByUid(DRUPAL_UID)
     await writeToFilePath(DESTINATION, users.sort(sortByUid))
   } catch (e) {
     handleError(e)

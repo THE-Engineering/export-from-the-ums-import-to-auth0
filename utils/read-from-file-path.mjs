@@ -15,12 +15,16 @@ import {
 } from './crypto/index.mjs'
 import handleFilePathError from './handle-file-path-error.mjs'
 
-export default async function readFromFilePath (filePath) {
+export default async function readFromFilePath (filePath, skipEncrypt = false) {
   try {
     await ensureDir(dirname(filePath))
     const fileData = await readFile(filePath)
-    const buffer = decrypt(fileData, CRYPTO_KEY)
-    return JSON.parse(buffer.toString())
+    if (skipEncrypt) {
+      return JSON.parse(fileData.toString())
+    } else {
+      const buffer = decrypt(fileData, CRYPTO_KEY)
+      return JSON.parse(buffer.toString())
+    }
   } catch (e) {
     handleFilePathError(e)
   }

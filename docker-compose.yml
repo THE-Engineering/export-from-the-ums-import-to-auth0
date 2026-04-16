@@ -1,9 +1,13 @@
-version: '3'
+version: '3.8'
+
 services:
   export-from-the-ums-import-to-auth0:
-    image: export-from-the-ums-import-to-auth0
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: export-from-the-ums-import-to-auth0
     working_dir: /app
     env_file: .env
+    tty: true
     volumes:
       - './:/app'

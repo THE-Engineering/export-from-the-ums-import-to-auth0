@@ -15,12 +15,16 @@ import {
 } from './crypto/index.mjs'
 import handleFilePathError from './handle-file-path-error.mjs'
 
-export default async function writeToFilePath (filePath, value) {
+export default async function writeToFilePath (filePath, value, skipEncrypt = false) {
   try {
     await ensureDir(dirname(filePath))
     const buffer = Buffer.from(JSON.stringify(value, null, 2))
-    const fileData = encrypt(buffer, CRYPTO_KEY)
-    await writeFile(filePath, fileData)
+    if (skipEncrypt) {
+      await writeFile(filePath, buffer)
+    } else {
+      const fileData = encrypt(buffer, CRYPTO_KEY)
+      await writeFile(filePath, fileData)
+    }
   } catch (e) {
     handleFilePathError(e)
   }

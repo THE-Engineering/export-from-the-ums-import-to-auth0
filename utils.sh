@@ -23,6 +23,10 @@ get_args () {
         export DATE_CHANGED="$2"
         shift
         ;;
+      --DRUPAL_UID)
+        export DRUPAL_UID="$2"
+        shift
+        ;;
       --USERS_JSON_FILE)
         export USERS_JSON_FILE="$2"
         shift
@@ -44,6 +48,9 @@ get_args () {
       --DATE_CHANGED=*)
         export DATE_CHANGED="${1#*=}"
         ;;
+      --DRUPAL_UID=*)
+        export DRUPAL_UID="${1#*=}"
+        ;;
       --USERS_JSON_FILE=*)
         export USERS_JSON_FILE="${1#*=}"
         ;;
@@ -61,6 +68,16 @@ get_args () {
 
 users () {
   node ./scripts/users.mjs \
+    --MARIADB_USER "$MARIADB_USER" \
+    --MARIADB_PASSWORD "$MARIADB_PASSWORD" \
+    --MARIADB_HOST "$MARIADB_HOST" \
+    --MARIADB_PORT "$MARIADB_PORT" \
+    --MARIADB_DATABASE "$MARIADB_DATABASE" \
+    --DESTINATION "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}"
+}
+
+users_plain () {
+  node ./scripts/users-plain.mjs \
     --MARIADB_USER "$MARIADB_USER" \
     --MARIADB_PASSWORD "$MARIADB_PASSWORD" \
     --MARIADB_HOST "$MARIADB_HOST" \
@@ -91,6 +108,41 @@ users_by_date_created () {
     --DATE_CREATED "${DATE_CREATED-$START}"
 }
 
+user_by_uid () {
+  node ./scripts/user-by-uid.mjs \
+    --MARIADB_USER "$MARIADB_USER" \
+    --MARIADB_PASSWORD "$MARIADB_PASSWORD" \
+    --MARIADB_HOST "$MARIADB_HOST" \
+    --MARIADB_PORT "$MARIADB_PORT" \
+    --MARIADB_DATABASE "$MARIADB_DATABASE" \
+    --DESTINATION "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}" \
+    --DRUPAL_UID "$DRUPAL_UID"
+}
+
+users_without_password () {
+  node ./scripts/users-without-password.mjs \
+    --MARIADB_USER "$MARIADB_USER" \
+    --MARIADB_PASSWORD "$MARIADB_PASSWORD" \
+    --MARIADB_HOST "$MARIADB_HOST" \
+    --MARIADB_PORT "$MARIADB_PORT" \
+    --MARIADB_DATABASE "$MARIADB_DATABASE" \
+    --DESTINATION "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}"
+}
+
+users_imports_plain () {
+  NODE_OPTIONS=--no-warnings node ./scripts/users-imports-plain.mjs \
+    --AUTH0_DOMAIN "$AUTH0_DOMAIN" \
+    --AUTH0_CONNECTION_ID "$AUTH0_CONNECTION_ID" \
+    --AUTH0_CLIENT_ID "$AUTH0_CLIENT_ID" \
+    --AUTH0_CLIENT_SECRET "$AUTH0_CLIENT_SECRET" \
+    --AUTH0_AUDIENCE "$AUTH0_AUDIENCE" \
+    --AUTH0_ACCESS_TOKEN_ENDPOINT "$AUTH0_ACCESS_TOKEN_ENDPOINT" \
+    --AUTH0_UPSERT "${AUTH0_UPSERT-$DEFAULT_AUTH0_UPSERT}" \
+    --ORIGIN "${AUTH0_JSON_FILE-$DEFAULT_AUTH0_JSON_FILE}" \
+    --USERS_IMPORTS_PATH "${USERS_IMPORTS_JSON_DIRECTORY-$DEFAULT_USERS_IMPORTS_JSON_DIRECTORY}" \
+    --DESTINATION "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
+}
+
 users_imports () {
   NODE_OPTIONS=--no-warnings node ./scripts/users-imports.mjs \
     --AUTH0_DOMAIN "$AUTH0_DOMAIN" \
@@ -117,8 +169,26 @@ users_exports () {
     --DESTINATION "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
 }
 
+users_exports_plain () {
+  NODE_OPTIONS=--no-warnings node ./scripts/users-exports-plain.mjs \
+    --AUTH0_DOMAIN "$AUTH0_DOMAIN" \
+    --AUTH0_CONNECTION_ID "$AUTH0_CONNECTION_ID" \
+    --AUTH0_CLIENT_ID "$AUTH0_CLIENT_ID" \
+    --AUTH0_CLIENT_SECRET "$AUTH0_CLIENT_SECRET" \
+    --AUTH0_AUDIENCE "$AUTH0_AUDIENCE" \
+    --AUTH0_ACCESS_TOKEN_ENDPOINT "$AUTH0_ACCESS_TOKEN_ENDPOINT" \
+    --USERS_EXPORTS_PATH "${USERS_EXPORTS_JSON_DIRECTORY-$DEFAULT_USERS_EXPORTS_JSON_DIRECTORY}/users.json" \
+    --DESTINATION "${STATUS_JSON_DIRECTORY-$DEFAULT_STATUS_JSON_DIRECTORY}"
+}
+
 transform_users () {
   NODE_OPTIONS="--no-warnings --max-old-space-size=4096" node ./scripts/transform-users.mjs \
+    --ORIGIN "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}" \
+    --DESTINATION "${AUTH0_JSON_FILE-$DEFAULT_AUTH0_JSON_FILE}"
+}
+
+transform_users_plain () {
+  NODE_OPTIONS="--no-warnings --max-old-space-size=4096" node ./scripts/transform-users-plain.mjs \
     --ORIGIN "${USERS_JSON_FILE-$DEFAULT_USERS_JSON_FILE}" \
     --DESTINATION "${AUTH0_JSON_FILE-$DEFAULT_AUTH0_JSON_FILE}"
 }
@@ -206,6 +276,27 @@ has_auth0 () {
     then
       false
     fi
+  fi
+}
+
+has_fake_creds () {
+  if ! has_fake_pass_hash || ! has_fake_salt_hash;
+  then
+    false
+  fi
+}
+
+has_fake_pass_hash () {
+  if [[ -z "$FAKE_PASS_HASH" ]];
+  then
+    false
+  fi
+}
+
+has_fake_salt_hash () {
+  if [[ -z "$FAKE_SALT_HASH" ]];
+  then
+    false
   fi
 }
 

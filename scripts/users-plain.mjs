@@ -8,8 +8,7 @@ import {
 } from 'fs-extra'
 import {
   DESTINATION,
-  LIMIT,
-  OFFSET
+  LIMIT
 } from '#config/users'
 import writeToFilePath from '#utils/write-to-file-path'
 import sortByUid from '#utils/sort-by-uid'
@@ -22,8 +21,8 @@ async function app () {
   console.log('🚀')
 
   try {
-    const users = await getUsers(LIMIT, OFFSET)
-    await writeToFilePath(DESTINATION, users.sort(sortByUid))
+    const users = await getUsers(LIMIT)
+    await writeToFilePath(DESTINATION, users.sort(sortByUid), true)
   } catch (e) {
     handleError(e)
 
